@@ -76,6 +76,7 @@ export default function Login() {
             label="Sign In"
             iconName="arrow-forward"
             onPress={handleLogin}
+            marginTop
           />
 
           <AuthFooter

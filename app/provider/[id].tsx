@@ -1,15 +1,21 @@
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { PROVIDERS } from "../../src/data/providers";
 import BackButton from "@/src/components/BackButton";
+import Button from "@/src/components/Button";
+import ProviderContent from "@/src/components/ProviderContent";
 
 export default function ProviderDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
 
   const provider = PROVIDERS.find((p) => p.id === id);
+
+  const handleBookAppointment = () => {
+    router.push(`/book/${provider?.id}`);
+  };
 
   if (!provider)
     return (
@@ -21,38 +27,29 @@ export default function ProviderDetails() {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: provider.image }} style={styles.heroImage} />
-          <BackButton variant="floating"/>
+          <BackButton variant="floating" />
         </View>
 
-        <View style={styles.contentCard}>
-          <View style={styles.profileHeader}>
-            <Text style={styles.name}>{provider.name}</Text>
-            <View style={styles.categoryBadge}>
-              <Ionicons name="briefcase" size={16} color={theme.colors.primary} />
-              <Text style={styles.category}>{provider.category}</Text>
-            </View>
-          </View>
-
-          <View style={styles.divider} />
-
-          <View style={styles.descriptionSection}>
-            <Text style={styles.sectionTitle}>About</Text>
-            <Text style={styles.description}>{provider.description}</Text>
-          </View>
-        </View>
+        <ProviderContent
+          category={provider.category}
+          name={provider.name}
+          description={provider.description}
+        />
       </ScrollView>
 
       <View style={styles.footerContainer}>
-        <TouchableOpacity
-          onPress={() => router.push(`/book/${provider.id}`)}
-          style={styles.bookButton}
-          activeOpacity={0.8}>
-          <Text style={styles.bookButtonText}>Book Appointment</Text>
-          <Ionicons name="arrow-forward" size={20} color={theme.colors.surface} />
-        </TouchableOpacity>
+        <Button
+          onPress={handleBookAppointment}
+          label="Book Appointment"
+          iconName="arrow-forward"
+          size={20}
+          padding="large"
+        />
       </View>
     </View>
   );
@@ -81,59 +78,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-  },
-  contentCard: {
-    marginTop: -40,
-    backgroundColor: theme.colors.surface,
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
-    padding: theme.spacing.large,
-    minHeight: 500,
-    ...theme.shadows.medium,
-  },
-  profileHeader: {
-    marginBottom: theme.spacing.large,
-  },
-  name: {
-    fontSize: theme.fontSizes.xxlarge,
-    fontWeight: "800",
-    color: theme.colors.text,
-    marginBottom: theme.spacing.small,
-    letterSpacing: -0.5,
-  },
-  categoryBadge: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: theme.colors.primaryLight + "20",
-    paddingHorizontal: theme.spacing.medium,
-    paddingVertical: theme.spacing.small,
-    borderRadius: theme.borderRadius.full,
-    alignSelf: "flex-start",
-  },
-  category: {
-    fontSize: theme.fontSizes.medium,
-    color: theme.colors.primary,
-    marginLeft: theme.spacing.small,
-    fontWeight: "600",
-  },
-  divider: {
-    height: 1,
-    backgroundColor: theme.colors.border,
-    marginBottom: theme.spacing.large,
-  },
-  descriptionSection: {
-    marginBottom: theme.spacing.xlarge,
-  },
-  sectionTitle: {
-    fontSize: theme.fontSizes.xlarge,
-    fontWeight: "bold",
-    color: theme.colors.text,
-    marginBottom: theme.spacing.medium,
-  },
-  description: {
-    fontSize: theme.fontSizes.medium,
-    color: theme.colors.textSecondary,
-    lineHeight: 26,
   },
   footerContainer: {
     position: "absolute",

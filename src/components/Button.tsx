@@ -7,15 +7,37 @@ export default function Button({
   label,
   iconName,
   onPress,
+  size = 20,
+  padding = "medium",
+  disabled = false,
+  style,
+  marginTop = false,
 }: {
   label: string;
   iconName: IconName;
   onPress: () => void;
+  size?: number;
+  padding?: "medium" | "large";
+  marginTop?: boolean;
+  disabled?: boolean;
+  style?: object;
 }) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity
+      style={{
+        ...styles.button,
+        ...(padding === "large" ? styles.largePadding : {}),
+        ...(disabled ? styles.disabledButton : {}),
+        ...(marginTop ? styles.marginTop : {}),
+        ...style,
+      }}
+      onPress={onPress}>
       <Text style={styles.buttonText}>{label}</Text>
-      <Ionicons name={iconName} size={20} color={theme.colors.surface} />
+      <Ionicons
+        name={iconName}
+        size={size}
+        color={disabled ? theme.colors.textSecondary : theme.colors.surface}
+      />
     </TouchableOpacity>
   );
 }
@@ -28,8 +50,16 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.primary,
     padding: theme.spacing.medium,
     borderRadius: theme.borderRadius.full,
-    marginTop: theme.spacing.medium,
     ...theme.shadows.primary,
+  },
+  marginTop: {
+    marginTop: theme.spacing.medium,
+  },
+  largePadding: {
+    padding: theme.spacing.large,
+  },
+  disabledButton: {
+    backgroundColor: theme.colors.border,
   },
   buttonText: {
     color: theme.colors.surface,

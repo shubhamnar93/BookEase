@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import {
-    deleteAppointment,
-    getAppointments,
-    saveAppointment,
+  deleteAppointment,
+  getAppointments,
+  saveAppointment,
 } from "../storage/appointmentStorage";
 import { Appointment } from "../types";
 import { useAuth } from "./AuthContext";

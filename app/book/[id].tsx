@@ -18,6 +18,7 @@ import BackButton from "@/src/components/BackButton";
 import TimeSlotCard from "@/src/components/TimeSlotCard";
 import BookSectionAppointment from "@/src/components/BookSectionHeader";
 import DateSelector from "@/src/components/DateSelector";
+import Button from "@/src/components/Button";
 
 const TIME_SLOTS = [
   "09:00 AM",
@@ -116,23 +117,14 @@ export default function BookAppointment() {
       </ScrollView>
 
       <View style={styles.footerContainer}>
-        <TouchableOpacity
+        <Button
+          label="confirm Booking"
+          iconName="checkmark-circle"
           onPress={handleBooking}
           disabled={!selectedSlot}
-          style={[
-            styles.confirmButton,
-            !selectedSlot && styles.confirmButtonDisabled,
-          ]}
-          activeOpacity={0.8}>
-          <Text style={styles.confirmButtonText}>Confirm Booking</Text>
-          <Ionicons
-            name="checkmark-circle"
-            size={24}
-            color={
-              !selectedSlot ? theme.colors.textSecondary : theme.colors.surface
-            }
-          />
-        </TouchableOpacity>
+          size={24}
+          padding="large"
+        />
       </View>
     </View>
   );
@@ -168,21 +160,6 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.xlarge,
     ...theme.shadows.medium,
   },
-  dateSelector: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    padding: theme.spacing.medium,
-    borderRadius: theme.borderRadius.medium,
-    backgroundColor: theme.colors.background,
-  },
-  dateSelectorText: {
-    fontSize: theme.fontSizes.large,
-    fontWeight: "600",
-    color: theme.colors.text,
-  },
   slotsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -200,22 +177,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: theme.colors.border,
     ...theme.shadows.primary,
-  },
-  confirmButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.colors.primary,
-    padding: theme.spacing.large,
-    borderRadius: theme.borderRadius.full,
-  },
-  confirmButtonDisabled: {
-    backgroundColor: theme.colors.border,
-  },
-  confirmButtonText: {
-    color: theme.colors.surface,
-    fontWeight: "bold",
-    fontSize: theme.fontSizes.large,
-    marginRight: theme.spacing.small,
   },
 });
