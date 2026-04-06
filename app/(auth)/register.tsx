@@ -16,6 +16,10 @@ import {
   View,
 } from "react-native";
 import { getUsers, saveUser } from "../../src/storage/authStorage";
+import AuthHeader from "@/src/components/AuthHeader";
+import Input from "@/src/components/input";
+import Button from "@/src/components/Button";
+import { AuthFooter } from "@/src/components/AuthFooter";
 
 export default function Signup() {
   const { login, user } = useAuth();
@@ -55,94 +59,48 @@ export default function Signup() {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-    >
+      behavior={Platform.OS === "ios" ? "padding" : undefined}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-      >
-        <LinearGradient
-          colors={[theme.colors.primaryLight, theme.colors.primary]}
-          style={styles.heroBackground}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-        >
-          <View style={styles.logoContainer}>
-            <View style={styles.logoWrapper}>
-              <Ionicons name="person-add" size={56} color={theme.colors.primary} />
-            </View>
-            <Text style={styles.appName}>Join BookEase</Text>
-            <Text style={styles.tagline}>Create an account to get started.</Text>
-          </View>
-        </LinearGradient>
-
+        keyboardShouldPersistTaps="handled">
+        <AuthHeader
+          heading="Join BookEase"
+          tagline="Create an account to get started."
+          iconName="person-add"
+        />
         <View style={styles.formContainer}>
           <Text style={styles.formTitle}>Sign Up</Text>
           <Text style={styles.formSubtitle}>Enter your details below</Text>
+          <Input
+            name={name}
+            setName={setName}
+            iconName="person-outline"
+            placeholder="Full Name"
+          />
+          <Input
+            name={email}
+            setName={setEmail}
+            iconName="mail-outline"
+            placeholder="Email"
+          />
+          <Input
+            name={password}
+            setName={setPassword}
+            iconName="lock-closed-outline"
+            placeholder="Password"
+          />
+          <Button
+            label="Create Account"
+            iconName="arrow-forward"
+            onPress={handleSignup}
+          />
 
-          <View style={styles.inputWrapper}>
-            <Ionicons
-              name="person-outline"
-              size={20}
-              color={theme.colors.textSecondary}
-              style={styles.inputIcon}
-            />
-            <TextInput
-              placeholder="Full Name"
-              style={styles.input}
-              placeholderTextColor={theme.colors.textSecondary}
-              value={name}
-              onChangeText={setName}
-            />
-          </View>
-
-          <View style={styles.inputWrapper}>
-            <Ionicons
-              name="mail-outline"
-              size={20}
-              color={theme.colors.textSecondary}
-              style={styles.inputIcon}
-            />
-            <TextInput
-              placeholder="Email"
-              style={styles.input}
-              placeholderTextColor={theme.colors.textSecondary}
-              keyboardType="email-address"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-            />
-          </View>
-
-          <View style={styles.inputWrapper}>
-            <Ionicons
-              name="lock-closed-outline"
-              size={20}
-              color={theme.colors.textSecondary}
-              style={styles.inputIcon}
-            />
-            <TextInput
-              placeholder="Password"
-              style={styles.input}
-              placeholderTextColor={theme.colors.textSecondary}
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-          </View>
-
-          <TouchableOpacity style={styles.button} onPress={handleSignup}>
-            <Text style={styles.buttonText}>Create Account</Text>
-            <Ionicons name="arrow-forward" size={20} color={theme.colors.surface} />
-          </TouchableOpacity>
-
-          <View style={styles.footer}>
-            <Text style={styles.link}>Already have an account? </Text>
-            <TouchableOpacity onPress={() => router.replace("/(auth)/login")}>
-              <Text style={styles.linkBold}>Sign In</Text>
-            </TouchableOpacity>
-          </View>
+          <AuthFooter
+            text="Already have an account? "
+            linkText="Sign In"
+            onPress={() => router.replace("/(auth)/login")}
+          />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -157,39 +115,6 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingBottom: theme.spacing.xlarge,
-  },
-  heroBackground: {
-    paddingTop: 80,
-    paddingBottom: 60,
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    alignItems: "center",
-    ...theme.shadows.primary,
-  },
-  logoContainer: {
-    alignItems: "center",
-  },
-  logoWrapper: {
-    width: 90,
-    height: 90,
-    borderRadius: theme.borderRadius.full,
-    backgroundColor: theme.colors.surface,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: theme.spacing.medium,
-    ...theme.shadows.medium,
-  },
-  appName: {
-    fontSize: theme.fontSizes.xxlarge,
-    fontWeight: "800",
-    color: theme.colors.surface,
-    marginBottom: theme.spacing.tiny,
-    letterSpacing: 0.5,
-  },
-  tagline: {
-    fontSize: theme.fontSizes.medium,
-    color: "rgba(255, 255, 255, 0.8)",
-    fontWeight: "500",
   },
   formContainer: {
     backgroundColor: theme.colors.surface,
@@ -209,54 +134,5 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.medium,
     color: theme.colors.textSecondary,
     marginBottom: theme.spacing.large,
-  },
-  inputWrapper: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1.5,
-    borderColor: theme.colors.border,
-    borderRadius: theme.borderRadius.medium,
-    marginBottom: theme.spacing.medium,
-    paddingHorizontal: theme.spacing.medium,
-  },
-  inputIcon: {
-    marginRight: theme.spacing.small,
-  },
-  input: {
-    flex: 1,
-    paddingVertical: theme.spacing.medium,
-    color: theme.colors.text,
-    fontSize: theme.fontSizes.medium,
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.colors.primary,
-    padding: theme.spacing.medium,
-    borderRadius: theme.borderRadius.full,
-    marginTop: theme.spacing.medium,
-    ...theme.shadows.primary,
-  },
-  buttonText: {
-    color: theme.colors.surface,
-    fontWeight: "bold",
-    fontSize: theme.fontSizes.large,
-    marginRight: theme.spacing.small,
-  },
-  footer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: theme.spacing.xlarge,
-  },
-  link: {
-    color: theme.colors.textSecondary,
-    fontSize: theme.fontSizes.medium,
-  },
-  linkBold: {
-    color: theme.colors.primary,
-    fontSize: theme.fontSizes.medium,
-    fontWeight: "bold",
   },
 });

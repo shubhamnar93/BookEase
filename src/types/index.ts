@@ -1,3 +1,5 @@
+import { Ionicons } from "@expo/vector-icons";
+
 // USER of the app
 export type User = {
   email: string;
@@ -23,3 +25,4 @@ export type Appointment = {
   createdAt: string;
 };
 
+export type IconName = React.ComponentProps<typeof Ionicons>["name"];

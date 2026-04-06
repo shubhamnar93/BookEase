@@ -4,30 +4,39 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme";
 import { useAuth } from "../context/AuthContext";
 import { router } from "expo-router";
+import { IconName } from "../types";
 
-type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
-export default function TabsHeader({ title, iconName }: { title: string, iconName: IoniconName }) {
-
+export default function TabsHeader({
+  title,
+  iconName,
+}: {
+  title: string;
+  iconName: IconName;
+}) {
   const { logout } = useAuth();
   const handleLogout = async () => {
     await logout();
     router.replace("/(auth)/login");
   };
-    return (
-      <LinearGradient colors={[theme.colors.primaryLight, theme.colors.primary]}
-        style={styles.header}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <View style={styles.headerTitleContainer}>
-          <Ionicons name={iconName} size={28} color={theme.colors.surface} />
-          <Text style={styles.headerTitle}>{title}</Text>
-        </View>
-        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Ionicons name="log-out-outline" size={28} color={theme.colors.surface} />
-        </TouchableOpacity>
-      </LinearGradient>
-    )
+  return (
+    <LinearGradient
+      colors={[theme.colors.primaryLight, theme.colors.primary]}
+      style={styles.header}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 0 }}>
+      <View style={styles.headerTitleContainer}>
+        <Ionicons name={iconName} size={28} color={theme.colors.surface} />
+        <Text style={styles.headerTitle}>{title}</Text>
+      </View>
+      <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
+        <Ionicons
+          name="log-out-outline"
+          size={28}
+          color={theme.colors.surface}
+        />
+      </TouchableOpacity>
+    </LinearGradient>
+  );
 }
 const styles = StyleSheet.create({
   header: {
@@ -55,4 +64,4 @@ const styles = StyleSheet.create({
   logoutButton: {
     padding: theme.spacing.small,
   },
-})
+});
