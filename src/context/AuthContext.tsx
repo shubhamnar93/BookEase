@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const storedUser = await getCurrentUser();
         if (storedUser) {
           setUser(storedUser);
-          setIsLoading(false);
         }
+        setIsLoading(false);
       } catch (error) {
         console.error("Error loading user:", error);
         setIsLoading(false);

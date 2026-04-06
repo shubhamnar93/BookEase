@@ -2,11 +2,14 @@ import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
+import { useMemo, useState } from "react";
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -16,11 +19,26 @@ import { PROVIDERS } from "../../src/data/providers";
 export default function Providers() {
   const router = useRouter();
   const { logout } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const handleLogout = async () => {
     await logout();
     router.replace("/(auth)/login");
   };
+
+  const categories = useMemo(() => {
+    const cats = PROVIDERS.map((p) => p.category);
+    return ["All", ...new Set(cats)];
+  }, []);
+
+  const filteredProviders = useMemo(() => {
+    return PROVIDERS.filter((provider) => {
+      const matchesSearch = provider.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === "All" || provider.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory]);
 
   return (
     <View style={styles.container}>
@@ -39,8 +57,41 @@ export default function Providers() {
         </TouchableOpacity>
       </LinearGradient>
 
+      <View style={styles.searchContainer}>
+        <Ionicons name="search" size={20} color={theme.colors.textSecondary} style={styles.searchIcon} />
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search providers..."
+          placeholderTextColor={theme.colors.textSecondary}
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
+
+      <View style={styles.categoriesContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoriesScroll}>
+          {categories.map((category) => (
+            <TouchableOpacity
+              key={category}
+              style={[
+                styles.categoryChip,
+                selectedCategory === category && styles.categoryChipSelected,
+              ]}
+              onPress={() => setSelectedCategory(category)}
+            >
+              <Text style={[
+                styles.categoryChipText,
+                selectedCategory === category && styles.categoryChipTextSelected,
+              ]}>
+                {category}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
       <FlatList
-        data={PROVIDERS}
+        data={filteredProviders}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
@@ -79,7 +130,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: theme.spacing.medium,
-    paddingTop: theme.spacing.xlarge + 20, // Add top padding for status bar area
+    paddingTop: theme.spacing.xlarge + 20,
     paddingBottom: theme.spacing.large,
     borderBottomLeftRadius: 24,
     borderBottomRightRadius: 24,
@@ -98,6 +149,55 @@ const styles = StyleSheet.create({
     color: theme.colors.surface,
     marginLeft: theme.spacing.medium,
     letterSpacing: 0.5,
+  },
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: theme.colors.surface,
+    marginHorizontal: theme.spacing.medium,
+    marginTop: theme.spacing.large,
+    paddingHorizontal: theme.spacing.medium,
+    borderRadius: theme.borderRadius.large,
+    ...theme.shadows.light,
+  },
+  searchIcon: {
+    marginRight: theme.spacing.small,
+  },
+  searchInput: {
+    flex: 1,
+    paddingVertical: theme.spacing.medium,
+    fontSize: theme.fontSizes.medium,
+    color: theme.colors.text,
+  },
+  categoriesContainer: {
+    marginTop: theme.spacing.medium,
+    marginBottom: theme.spacing.small,
+  },
+  categoriesScroll: {
+    paddingHorizontal: theme.spacing.medium,
+    paddingBottom: theme.spacing.small,
+  },
+  categoryChip: {
+    paddingHorizontal: theme.spacing.medium,
+    paddingVertical: theme.spacing.small,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.full,
+    marginRight: theme.spacing.small,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  categoryChipSelected: {
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
+    ...theme.shadows.light,
+  },
+  categoryChipText: {
+    fontSize: theme.fontSizes.medium,
+    color: theme.colors.textSecondary,
+    fontWeight: "600",
+  },
+  categoryChipTextSelected: {
+    color: theme.colors.surface,
   },
   listContainer: {
     padding: theme.spacing.medium,
