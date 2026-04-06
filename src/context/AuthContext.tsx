@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { AppState, AppStateStatus } from "react-native";
 import {
-    getCurrentUser,
-    getUsers,
-    logoutUser,
-    saveUser,
-    setCurrentUser,
+  getCurrentUser,
+  getUsers,
+  logoutUser,
+  saveUser,
+  setCurrentUser,
 } from "../storage/authStorage";
 import { User } from "../types";
 
@@ -24,14 +25,36 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Restore session when app starts
+  // Restore session when app starts and listen to foreground changes
   useEffect(() => {
     const loadUser = async () => {
-      const storedUser = await getCurrentUser();
-      setUser(storedUser);
-      setIsLoading(false);
+      try {
+        const storedUser = await getCurrentUser();
+        if (storedUser) {
+          setUser(storedUser);
+          setIsLoading(false);
+        }
+      } catch (error) {
+        console.error("Error loading user:", error);
+        setIsLoading(false);
+      }
     };
+
     loadUser();
+
+    // Check storage again when app returns to foreground
+    const subscription = AppState.addEventListener(
+      "change",
+      (nextAppState: AppStateStatus) => {
+        if (nextAppState === "active") {
+          loadUser();
+        }
+      },
+    );
+
+    return () => {
+      subscription.remove();
+    };
   }, []);
 
   const register = async (email: string, password: string) => {

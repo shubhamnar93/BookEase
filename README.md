@@ -1,50 +1,135 @@
-# Welcome to your Expo app 👋
+📱 Appointment Booking App (React Native)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A mobile application built with React Native (Expo Router) that allows users to browse service providers and book appointments with available time slots.
 
-## Get started
+This project was developed as part of a technical assignment to demonstrate mobile app architecture, state management, UX thinking, and ability to ship a production-ready APK.
 
-1. Install dependencies
+✨ App Overview
 
-   ```bash
-   npm install
-   ```
+The app enables users to:
 
-2. Start the app
+Register and login (offline authentication)
+Browse service providers
+View provider details
+Book available time slots
+View upcoming appointments
+Cancel appointments
+Persist data locally using AsyncStorage
 
-   ```bash
-   npx expo start
-   ```
+All data is stored locally, simulating a real backend.
 
-In the output, you'll find options to open the app in a
+🧩 Features
+🔐 Authentication
+Register new account
+Login / Logout
+Persistent session restore on app restart
+Local storage based (no external backend)
+👩‍⚕️ Providers Listing
+Browse list of service providers
+View provider profile details
+Navigate to booking screen
+📅 Appointment Booking
+Select date and time slot
+Prevent double booking of the same slot
+Save appointments locally
+🗂️ Appointment Management
+View upcoming appointments
+Cancel appointment
+Empty state & confirmation dialogs
+🎨 UX Polish
+Loading states
+Success & error alerts
+Clean card-based UI
+Smooth navigation with Expo Router
+🏗️ Tech Stack
+Area Technology
+Framework React Native (Expo)
+Navigation Expo Router (file-based routing)
+Storage AsyncStorage
+State Management React Context API
+Language TypeScript
+Build Expo EAS (APK)
+📂 Project Structure
+app/
+├── (auth)/
+│ ├── login.tsx
+│ └── register.tsx
+│
+├── (tabs)/
+│ ├── \_layout.tsx
+│ ├── providers.tsx
+│ └── appointments.tsx
+│
+├── provider/[id].tsx
+├── book/[id].tsx
+└── \_layout.tsx
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+src/
+├── context/
+│ ├── AuthContext.tsx
+│ └── AppointmentContext.tsx
+│
+├── storage/
+│ ├── authStorage.ts
+│ └── appointmentStorage.ts
+│
+├── data/providers.ts
+└── types/index.ts
+🧠 Architecture Decisions
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. Context API for Global State
 
-## Get a fresh project
+Two global providers:
 
-When you're ready, run:
+AuthContext → manages user session
+AppointmentContext → manages booking logic
 
-```bash
-npm run reset-project
-```
+This keeps UI components clean and separates business logic.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. AsyncStorage as Local Backend
 
-## Learn more
+A small storage layer simulates real APIs:
 
-To learn more about developing your project with Expo, look at the following resources:
+Users
+Current session
+Appointments
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+This demonstrates real-world persistence without requiring a backend.
 
-## Join the community
+3. Expo Router Navigation
 
-Join our community of developers creating universal apps.
+File-based routing was used to:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Reduce navigation boilerplate
+Improve project scalability
+Mimic modern production architecture 4. Double Booking Prevention
+
+The booking engine checks if a slot is already booked before confirming.
+
+This simulates real booking systems and adds business logic depth.
+
+⚠️ Assumptions
+This is an offline-first demo app.
+Providers and time slots are mock data.
+Payments and real backend integration are out of scope.
+Authentication is local and not secure for production use.
+▶️ How to Run the Project
+1️⃣ Install dependencies
+npm install
+2️⃣ Start Expo server
+npx expo start
+3️⃣ Run on device/emulator
+Press a → Android emulator
+or
+Scan QR using Expo Go app
+📦 Build APK (Expo EAS)
+npm install -g eas-cli
+eas login
+eas build:configure
+eas build -p android --profile preview
+
+Expo will generate an APK download link.
+
+👨‍💻 Author
+
+Shubham Narnolia

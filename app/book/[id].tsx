@@ -1,3 +1,4 @@
+import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -27,10 +28,19 @@ export default function BookAppointment() {
   const router = useRouter();
   const { bookAppointment, isSlotBooked } = useAppointments();
 
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0], // Keep this simple for the demo
-  );
+  const [date, setDate] = useState(new Date());
+  const [showPicker, setShowPicker] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+
+  const selectedDateStr = date.toISOString().split("T")[0];
+
+  const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    setShowPicker(false);
+    if (selectedDate) {
+      setDate(selectedDate);
+      setSelectedSlot(null); // Reset slot on date change
+    }
+  };
 
   const handleBooking = async () => {
     if (!selectedSlot) {
@@ -40,7 +50,7 @@ export default function BookAppointment() {
 
     const error = await bookAppointment(
       id as string,
-      selectedDate,
+      selectedDateStr,
       selectedSlot,
     );
 
@@ -50,7 +60,7 @@ export default function BookAppointment() {
     }
 
     Alert.alert("Success", "Appointment booked successfully!", [
-      { text: "OK", onPress: () => router.replace("/(tabs)/appointments") }
+      { text: "OK", onPress: () => router.replace("/(tabs)/appointments") },
     ]);
     setSelectedSlot(null);
   };
@@ -69,25 +79,51 @@ export default function BookAppointment() {
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.card}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="calendar-outline" size={24} color={theme.colors.primary} />
+            <Ionicons
+              name="calendar-outline"
+              size={24}
+              color={theme.colors.primary}
+            />
             <Text style={styles.sectionTitle}>Pick a Date</Text>
           </View>
-          
-          <TouchableOpacity style={styles.dateSelector}>
-            <Text style={styles.dateSelectorText}>{selectedDate}</Text>
-            <Ionicons name="chevron-down" size={20} color={theme.colors.textSecondary} />
+
+          <TouchableOpacity 
+            style={styles.dateSelector}
+            onPress={() => setShowPicker(true)}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.dateSelectorText}>{selectedDateStr}</Text>
+            <Ionicons
+              name="calendar"
+              size={20}
+              color={theme.colors.textSecondary}
+            />
           </TouchableOpacity>
+
+          {showPicker && (
+            <DateTimePicker
+              value={date}
+              mode="date"
+              display="default"
+              minimumDate={new Date()}
+              onChange={handleDateChange}
+            />
+          )}
         </View>
 
         <View style={styles.card}>
           <View style={styles.sectionHeader}>
-            <Ionicons name="time-outline" size={24} color={theme.colors.primary} />
+            <Ionicons
+              name="time-outline"
+              size={24}
+              color={theme.colors.primary}
+            />
             <Text style={styles.sectionTitle}>Available Slots</Text>
           </View>
-          
+
           <View style={styles.slotsGrid}>
             {TIME_SLOTS.map((slot) => {
-              const booked = isSlotBooked(id as string, selectedDate, slot);
+              const booked = isSlotBooked(id as string, selectedDateStr, slot);
               const selected = selectedSlot === slot;
 
               return (
@@ -100,8 +136,7 @@ export default function BookAppointment() {
                     booked && styles.slotButtonDisabled,
                     selected && styles.slotButtonSelected,
                   ]}
-                  activeOpacity={0.7}
-                >
+                  activeOpacity={0.7}>
                   <Text
                     style={[
                       styles.slotText,
@@ -133,13 +168,14 @@ export default function BookAppointment() {
             styles.confirmButton,
             !selectedSlot && styles.confirmButtonDisabled,
           ]}
-          activeOpacity={0.8}
-        >
+          activeOpacity={0.8}>
           <Text style={styles.confirmButtonText}>Confirm Booking</Text>
           <Ionicons
             name="checkmark-circle"
             size={24}
-            color={!selectedSlot ? theme.colors.textSecondary : theme.colors.surface}
+            color={
+              !selectedSlot ? theme.colors.textSecondary : theme.colors.surface
+            }
           />
         </TouchableOpacity>
       </View>

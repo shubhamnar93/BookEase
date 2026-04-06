@@ -17,12 +17,15 @@ function RootNavigator() {
 
     if (!user && !inAuthGroup) {
       router.replace("/(auth)/login");
-    }
-
-    if (user && inAuthGroup) {
+    } else if (
+      user &&
+      segments[0] !== "(tabs)" &&
+      segments[0] !== "provider" &&
+      segments[0] !== "book"
+    ) {
       router.replace("/(tabs)/providers");
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, segments]);
 
   // Show loading spinner while checking session
   if (isLoading) {
