@@ -1,4 +1,5 @@
 import { theme } from "@/src/theme";
+import { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 export default function Category({
@@ -10,6 +11,10 @@ export default function Category({
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
 }) {
+  const setCategory = useCallback(() => {
+    setSelectedCategory(category);
+  }, [category]);
+
   return (
     <TouchableOpacity
       key={category}
@@ -17,7 +22,7 @@ export default function Category({
         styles.categoryChip,
         selectedCategory === category && styles.categoryChipSelected,
       ]}
-      onPress={() => setSelectedCategory(category)}>
+      onPress={setCategory}>
       <Text
         style={[
           styles.categoryChipText,

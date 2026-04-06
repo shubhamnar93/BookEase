@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { PROVIDERS } from "../../src/data/providers";
+import BackButton from "@/src/components/BackButton";
 
 export default function ProviderDetails() {
   const { id } = useLocalSearchParams();
@@ -23,11 +24,7 @@ export default function ProviderDetails() {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: provider.image }} style={styles.heroImage} />
-          <TouchableOpacity
-            onPress={() => router.back()}
-            style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
+          <BackButton variant="floating"/>
         </View>
 
         <View style={styles.contentCard}>
@@ -84,15 +81,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
     resizeMode: "cover",
-  },
-  backButton: {
-    position: "absolute",
-    top: 50,
-    left: theme.spacing.medium,
-    backgroundColor: theme.colors.surface,
-    padding: theme.spacing.small,
-    borderRadius: theme.borderRadius.full,
-    ...theme.shadows.medium,
   },
   contentCard: {
     marginTop: -40,

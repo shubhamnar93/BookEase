@@ -22,39 +22,38 @@ import Button from "@/src/components/Button";
 import { AuthFooter } from "@/src/components/AuthFooter";
 
 export default function Signup() {
-  const { login, user } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user) {
-      router.replace("/(tabs)/providers");
-    }
-  }, [user]);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { login, user } = useAuth();
+  const router = useRouter();
 
   const handleSignup = async () => {
     if (!name || !email || !password) {
       Alert.alert("Error", "Please fill all fields");
       return;
     }
-
     await saveUser({ email, password });
     console.log(await getUsers());
-
     Alert.alert("Success", "Account created!");
-
     const error = await login(email, password);
-
     if (error) {
       Alert.alert("Login Failed", error);
       return;
     }
-
     router.push("/(tabs)/providers");
   };
+
+  const handleLoginPush = () => {
+    router.replace("/(auth)/login");
+  };
+
+  useEffect(() => {
+    if (user) {
+      router.replace("/(tabs)/providers");
+    }
+  }, [user]);
 
   return (
     <KeyboardAvoidingView
@@ -99,7 +98,7 @@ export default function Signup() {
           <AuthFooter
             text="Already have an account? "
             linkText="Sign In"
-            onPress={() => router.replace("/(auth)/login")}
+            onPress={handleLoginPush}
           />
         </View>
       </ScrollView>

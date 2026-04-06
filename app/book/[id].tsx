@@ -1,4 +1,6 @@
-import DateTimePicker, { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
@@ -12,6 +14,10 @@ import {
   View,
 } from "react-native";
 import { useAppointments } from "../../src/context/AppointmentContext";
+import BackButton from "@/src/components/BackButton";
+import TimeSlotCard from "@/src/components/TimeSlotCard";
+import BookSectionAppointment from "@/src/components/BookSectionHeader";
+import DateSelector from "@/src/components/DateSelector";
 
 const TIME_SLOTS = [
   "09:00 AM",
@@ -29,13 +35,13 @@ export default function BookAppointment() {
   const { bookAppointment, isSlotBooked } = useAppointments();
 
   const [date, setDate] = useState(new Date());
-  const [showPicker, setShowPicker] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const selectedDateStr = date.toISOString().split("T")[0];
-
-  const handleDateChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    setShowPicker(false);
+  const handleDateChange = (
+    event: DateTimePickerEvent,
+    selectedDate?: Date,
+  ) => {
     if (selectedDate) {
       setDate(selectedDate);
       setSelectedSlot(null); // Reset slot on date change
@@ -68,92 +74,41 @@ export default function BookAppointment() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity
-          onPress={() => router.back()}
-          style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
-        </TouchableOpacity>
+        <BackButton variant="inline" />
         <Text style={styles.headerTitle}>Select Date & Time</Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.card}>
-          <View style={styles.sectionHeader}>
-            <Ionicons
-              name="calendar-outline"
-              size={24}
-              color={theme.colors.primary}
-            />
-            <Text style={styles.sectionTitle}>Pick a Date</Text>
-          </View>
-
-          <TouchableOpacity 
-            style={styles.dateSelector}
-            onPress={() => setShowPicker(true)}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.dateSelectorText}>{selectedDateStr}</Text>
-            <Ionicons
-              name="calendar"
-              size={20}
-              color={theme.colors.textSecondary}
-            />
-          </TouchableOpacity>
-
-          {showPicker && (
-            <DateTimePicker
-              value={date}
-              mode="date"
-              display="default"
-              minimumDate={new Date()}
-              onChange={handleDateChange}
-            />
-          )}
+          <BookSectionAppointment
+            iconName="calendar-outline"
+            title="Pick a Date"
+          />
+          <DateSelector
+            date={date}
+            handleDateChange={handleDateChange}
+            selectedDateStr={selectedDateStr}
+          />
         </View>
 
         <View style={styles.card}>
-          <View style={styles.sectionHeader}>
-            <Ionicons
-              name="time-outline"
-              size={24}
-              color={theme.colors.primary}
-            />
-            <Text style={styles.sectionTitle}>Available Slots</Text>
-          </View>
-
+          <BookSectionAppointment
+            iconName="time-outline"
+            title="Available Slots"
+          />
           <View style={styles.slotsGrid}>
             {TIME_SLOTS.map((slot) => {
               const booked = isSlotBooked(id as string, selectedDateStr, slot);
               const selected = selectedSlot === slot;
 
               return (
-                <TouchableOpacity
+                <TimeSlotCard
                   key={slot}
-                  disabled={booked}
-                  onPress={() => setSelectedSlot(slot)}
-                  style={[
-                    styles.slotButton,
-                    booked && styles.slotButtonDisabled,
-                    selected && styles.slotButtonSelected,
-                  ]}
-                  activeOpacity={0.7}>
-                  <Text
-                    style={[
-                      styles.slotText,
-                      selected && styles.slotTextSelected,
-                      booked && styles.slotTextDisabled,
-                    ]}>
-                    {slot}
-                  </Text>
-                  {booked && (
-                    <Ionicons
-                      name="lock-closed"
-                      size={14}
-                      color={theme.colors.textSecondary}
-                      style={{ marginLeft: 6 }}
-                    />
-                  )}
-                </TouchableOpacity>
+                  slot={slot}
+                  booked={booked}
+                  selected={selected}
+                  setSelectedSlot={setSelectedSlot}
+                />
               );
             })}
           </View>
@@ -197,9 +152,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
-  backButton: {
-    marginRight: theme.spacing.medium,
-  },
   headerTitle: {
     fontSize: theme.fontSizes.xlarge,
     fontWeight: "bold",
@@ -215,17 +167,6 @@ const styles = StyleSheet.create({
     padding: theme.spacing.large,
     marginBottom: theme.spacing.xlarge,
     ...theme.shadows.medium,
-  },
-  sectionHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: theme.spacing.medium,
-  },
-  sectionTitle: {
-    fontSize: theme.fontSizes.large,
-    fontWeight: "bold",
-    color: theme.colors.text,
-    marginLeft: theme.spacing.small,
   },
   dateSelector: {
     flexDirection: "row",
@@ -247,39 +188,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     marginTop: theme.spacing.small,
-  },
-  slotButton: {
-    width: "48%",
-    flexDirection: "row",
-    padding: theme.spacing.medium,
-    marginBottom: theme.spacing.medium,
-    backgroundColor: theme.colors.background,
-    borderRadius: theme.borderRadius.medium,
-    borderWidth: 1.5,
-    borderColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  slotButtonSelected: {
-    backgroundColor: theme.colors.primary,
-    borderColor: theme.colors.primaryDark,
-    ...theme.shadows.light,
-  },
-  slotButtonDisabled: {
-    backgroundColor: theme.colors.border,
-    opacity: 0.5,
-  },
-  slotText: {
-    color: theme.colors.text,
-    fontSize: theme.fontSizes.medium,
-    fontWeight: "600",
-  },
-  slotTextSelected: {
-    color: theme.colors.surface,
-    fontWeight: "bold",
-  },
-  slotTextDisabled: {
-    color: theme.colors.textSecondary,
   },
   footerContainer: {
     position: "absolute",

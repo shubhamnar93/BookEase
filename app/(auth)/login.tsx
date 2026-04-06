@@ -1,6 +1,4 @@
 import { theme } from "@/src/theme";
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -10,8 +8,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { useAuth } from "../../src/context/AuthContext";
@@ -22,16 +18,9 @@ import { AuthFooter } from "@/src/components/AuthFooter";
 
 export default function Login() {
   const { login, user } = useAuth();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user) {
-      router.replace("/(tabs)/providers");
-    }
-  }, [user]);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   const handleLogin = async () => {
     const error = await login(email, password);
@@ -44,6 +33,15 @@ export default function Login() {
 
     router.push("/(tabs)/providers");
   };
+  const handleRegisterPush = () => {
+    router.push("/register");
+  };
+
+  useEffect(() => {
+    if (user) {
+      router.replace("/(tabs)/providers");
+    }
+  }, [user]);
 
   return (
     <KeyboardAvoidingView
@@ -83,7 +81,7 @@ export default function Login() {
           <AuthFooter
             text="Don't have an account? "
             linkText="Create an account"
-            onPress={() => router.push("/register")}
+            onPress={handleRegisterPush}
           />
         </View>
       </ScrollView>

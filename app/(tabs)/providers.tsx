@@ -9,9 +9,10 @@ import Category from "@/src/components/Category";
 import ProviderCard from "@/src/components/ProviderCard";
 
 export default function Providers() {
-  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const router = useRouter();
 
   const categories = useMemo(() => {
     const cats = PROVIDERS.map((p) => p.category);

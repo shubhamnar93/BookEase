@@ -12,6 +12,10 @@ export default function AppointmentCard({
   provider: Provider | undefined;
 }) {
   const { cancelAppointment } = useAppointments();
+  const handleCancel = () => cancelAppointment(item.id);
+  const formattedDate = item.dateISO;
+  const providerName = provider?.name ?? "Unknown Provider";
+  const providerCategory = provider?.category ?? "Service";
   return (
     <View style={styles.card}>
       <View style={styles.cardHeader}>
@@ -19,8 +23,8 @@ export default function AppointmentCard({
           <Ionicons name="person" size={24} color={theme.colors.primary} />
         </View>
         <View style={styles.headerText}>
-          <Text style={styles.providerName}>{provider?.name}</Text>
-          <Text style={styles.category}>{provider?.category}</Text>
+          <Text style={styles.providerName}>{providerName}</Text>
+          <Text style={styles.category}>{providerCategory}</Text>
         </View>
       </View>
 
@@ -29,7 +33,7 @@ export default function AppointmentCard({
       <View style={styles.detailsContainer}>
         <View style={styles.detailCard}>
           <Ionicons name="calendar" size={20} color={theme.colors.primary} />
-          <Text style={styles.detail}>{item.dateISO}</Text>
+          <Text style={styles.detail}>{formattedDate}</Text>
         </View>
         <View style={styles.detailCard}>
           <Ionicons name="time" size={20} color={theme.colors.primary} />
@@ -38,7 +42,9 @@ export default function AppointmentCard({
       </View>
 
       <TouchableOpacity
-        onPress={() => cancelAppointment(item.id)}
+        accessibilityRole="button"
+        accessibilityLabel="Cancel appointment"
+        onPress={handleCancel}
         style={styles.cancelButton}
         activeOpacity={0.7}>
         <Ionicons name="close-circle" size={18} color={theme.colors.error} />
