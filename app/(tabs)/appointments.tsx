@@ -10,25 +10,18 @@ import {
 } from "react-native";
 import { useAppointments } from "../../src/context/AppointmentContext";
 import { PROVIDERS } from "../../src/data/providers";
+import { useAuth } from "@/src/context/AuthContext";
+import { router } from "expo-router";
+import TabsHeader from "@/src/components/TabsHeader";
 
 export default function Appointments() {
   const { getUserAppointments, cancelAppointment } = useAppointments();
-
   const appointments = getUserAppointments();
 
   if (appointments.length === 0) {
     return (
       <View style={styles.container}>
-        <LinearGradient
-          colors={[theme.colors.primaryLight, theme.colors.primary]}
-          style={styles.header}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-        >
-          <Ionicons name="calendar" size={28} color={theme.colors.surface} />
-          <Text style={styles.headerTitle}>My Appointments</Text>
-        </LinearGradient>
-
+        <TabsHeader title="My Appointments" iconName={"calendar-sharp" }/>
         <View style={styles.emptyContainer}>
           <View style={styles.emptyIconContainer}>
             <Ionicons
@@ -48,16 +41,7 @@ export default function Appointments() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={[theme.colors.primaryLight, theme.colors.primary]}
-        style={styles.header}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <Ionicons name="calendar-sharp" size={28} color={theme.colors.surface} />
-        <Text style={styles.headerTitle}>My Appointments</Text>
-      </LinearGradient>
-
+      <TabsHeader title="My Appointments" iconName={"calendar-sharp" }/>
       <FlatList
         data={appointments}
         keyExtractor={(item) => item.id}
@@ -128,23 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
   },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: theme.spacing.medium,
-    paddingTop: theme.spacing.xlarge + 20, // Status bar padding
-    paddingBottom: theme.spacing.large,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    ...theme.shadows.medium,
-  },
-  headerTitle: {
-    fontSize: theme.fontSizes.xlarge,
-    fontWeight: "bold",
-    color: theme.colors.surface,
-    marginLeft: theme.spacing.medium,
-    letterSpacing: 0.5,
-  },
+
   emptyContainer: {
     flex: 1,
     justifyContent: "center",

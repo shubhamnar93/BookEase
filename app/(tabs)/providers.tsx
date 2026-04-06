@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { useAuth } from "../../src/context/AuthContext";
 import { PROVIDERS } from "../../src/data/providers";
+import TabsHeader from "@/src/components/TabsHeader";
 
 export default function Providers() {
   const router = useRouter();
@@ -42,21 +43,7 @@ export default function Providers() {
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={[theme.colors.primaryLight, theme.colors.primary]}
-        style={styles.header}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-      >
-        <View style={styles.headerTitleContainer}>
-          <Ionicons name="people" size={28} color={theme.colors.surface} />
-          <Text style={styles.headerTitle}>Find Your Provider</Text>
-        </View>
-        <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-          <Ionicons name="log-out-outline" size={28} color={theme.colors.surface} />
-        </TouchableOpacity>
-      </LinearGradient>
-
+      <TabsHeader title="Find Your Provider" iconName={"people" }/>
       <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color={theme.colors.textSecondary} style={styles.searchIcon} />
         <TextInput
@@ -124,31 +111,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: theme.spacing.medium,
-    paddingTop: theme.spacing.xlarge + 20,
-    paddingBottom: theme.spacing.large,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
-    ...theme.shadows.medium,
-  },
-  headerTitleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  logoutButton: {
-    padding: theme.spacing.small,
-  },
-  headerTitle: {
-    fontSize: theme.fontSizes.xlarge,
-    fontWeight: "bold",
-    color: theme.colors.surface,
-    marginLeft: theme.spacing.medium,
-    letterSpacing: 0.5,
   },
   searchContainer: {
     flexDirection: "row",

@@ -22,3 +22,4 @@ export type Appointment = {
   timeSlot: string; // "10:00 AM"
   createdAt: string;
 };
+
