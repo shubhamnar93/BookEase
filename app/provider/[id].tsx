@@ -6,8 +6,9 @@ import { PROVIDERS } from "../../src/data/providers";
 import BackButton from "@/src/components/BackButton";
 import Button from "@/src/components/Button";
 import ProviderContent from "@/src/components/ProviderContent";
+import { memo } from "react";
 
-export default function ProviderDetails() {
+function ProviderDetails() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
 
@@ -109,3 +110,4 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.medium,
   },
 });
+export default memo(ProviderDetails);

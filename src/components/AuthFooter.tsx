@@ -1,8 +1,8 @@
-import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme";
+import { memo } from "react";
 
-export const AuthFooter = ({
+function AuthFooter({
   text,
   linkText,
   onPress,
@@ -10,26 +10,23 @@ export const AuthFooter = ({
   text: string;
   linkText: string;
   onPress: () => void;
-}) => {
+}) {
   return (
     <View style={styles.footer}>
       <Text style={styles.link}>{text} </Text>
-      <TouchableOpacity 
+      <TouchableOpacity
         onPress={onPress}
         accessible={true}
         accessibilityRole="button"
         accessibilityLabel={linkText}
-        accessibilityHint={`Navigate to ${linkText.toLowerCase()}`}
-      >
-        <Text 
-          style={[styles.linkBold, { textDecorationLine: 'underline' }]}
-        >
+        accessibilityHint={`Navigate to ${linkText.toLowerCase()}`}>
+        <Text style={[styles.linkBold, { textDecorationLine: "underline" }]}>
           {linkText}
         </Text>
       </TouchableOpacity>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   footer: {
@@ -47,3 +44,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
+
+export default memo(AuthFooter);

@@ -1,9 +1,7 @@
 import { useAuth } from "@/src/context/AuthContext";
 import { theme } from "@/src/theme";
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -11,17 +9,15 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { getUsers, saveUser } from "../../src/storage/authStorage";
 import AuthHeader from "@/src/components/AuthHeader";
 import Input from "@/src/components/input";
 import Button from "@/src/components/Button";
-import { AuthFooter } from "@/src/components/AuthFooter";
+import AuthFooter from "@/src/components/AuthFooter";
 
-export default function Signup() {
+function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -69,11 +65,10 @@ export default function Signup() {
           iconName="person-add"
         />
         <View style={styles.formContainer}>
-          <Text 
+          <Text
             style={styles.formTitle}
             accessibilityRole="header"
-            accessibilityLabel="Sign Up Form"
-          >
+            accessibilityLabel="Sign Up Form">
             Sign Up
           </Text>
           <Text style={styles.formSubtitle}>Enter your details below</Text>
@@ -120,7 +115,6 @@ export default function Signup() {
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -150,3 +144,5 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.large,
   },
 });
+
+export default memo(Signup);

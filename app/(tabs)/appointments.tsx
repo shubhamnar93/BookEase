@@ -5,16 +5,17 @@ import { useAppointments } from "../../src/context/AppointmentContext";
 import { PROVIDERS } from "../../src/data/providers";
 import TabsHeader from "@/src/components/TabsHeader";
 import AppointmentCard from "@/src/components/AppointmentCard";
+import { memo } from "react";
 
-export default function Appointments() {
+function Appointments() {
   const { getUserAppointments } = useAppointments();
   const appointments = getUserAppointments();
 
   if (appointments.length === 0) {
     return (
       <View style={styles.container}>
-        <TabsHeader 
-          title="My Appointments" 
+        <TabsHeader
+          title="My Appointments"
           iconName={"calendar-sharp"}
           accessibilityLabel="My appointments screen"
         />
@@ -27,11 +28,10 @@ export default function Appointments() {
               accessibilityLabel="Empty calendar icon"
             />
           </View>
-          <Text 
+          <Text
             style={styles.emptyText}
             accessibilityRole="header"
-            accessibilityLabel="No appointments"
-          >
+            accessibilityLabel="No appointments">
             No appointments yet
           </Text>
           <Text style={styles.emptySubtext}>
@@ -44,8 +44,8 @@ export default function Appointments() {
 
   return (
     <View style={styles.container}>
-      <TabsHeader 
-        title="My Appointments" 
+      <TabsHeader
+        title="My Appointments"
         iconName={"calendar-sharp"}
         accessibilityLabel="My appointments screen"
       />
@@ -66,7 +66,6 @@ export default function Appointments() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -107,3 +106,5 @@ const styles = StyleSheet.create({
     paddingBottom: 100, // Space for bottom tab
   },
 });
+
+export default memo(Appointments);

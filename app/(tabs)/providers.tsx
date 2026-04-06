@@ -1,6 +1,6 @@
 import { theme } from "@/src/theme";
 import { useRouter } from "expo-router";
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { PROVIDERS } from "../../src/data/providers";
 import TabsHeader from "@/src/components/TabsHeader";
@@ -8,7 +8,7 @@ import Search from "@/src/components/Search";
 import Category from "@/src/components/Category";
 import ProviderCard from "@/src/components/ProviderCard";
 
-export default function Providers() {
+function Providers() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -64,7 +64,11 @@ export default function Providers() {
         showsVerticalScrollIndicator={false}
         accessible={true}
         accessibilityLabel={`${filteredProviders.length} providers found`}
-        accessibilityHint={selectedCategory !== "All" ? `Filtered by ${selectedCategory}` : "Showing all providers"}
+        accessibilityHint={
+          selectedCategory !== "All"
+            ? `Filtered by ${selectedCategory}`
+            : "Showing all providers"
+        }
         renderItem={({ item }) => (
           <ProviderCard
             item={item}
@@ -75,7 +79,6 @@ export default function Providers() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -94,3 +97,5 @@ const styles = StyleSheet.create({
     paddingBottom: 100, // Space for bottom tabs
   },
 });
+
+export default memo(Providers);

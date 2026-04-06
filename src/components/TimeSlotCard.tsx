@@ -1,8 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme";
 import { Ionicons } from "@expo/vector-icons";
+import { memo } from "react";
 
-export default function TimeSlotCard({
+function TimeSlotCard({
   slot,
   booked,
   selected,
@@ -32,11 +33,12 @@ export default function TimeSlotCard({
       accessibilityLabel={slot}
       accessibilityState={{ selected, disabled: booked }}
       accessibilityHint={
-        booked ? "This time slot is not available" : 
-        selected ? "This time slot is selected" : 
-        "Double tap to select this time slot"
-      }
-    >
+        booked
+          ? "This time slot is not available"
+          : selected
+            ? "This time slot is selected"
+            : "Double tap to select this time slot"
+      }>
       <Text
         style={[
           styles.slotText,
@@ -58,7 +60,6 @@ export default function TimeSlotCard({
     </TouchableOpacity>
   );
 }
-
 const styles = StyleSheet.create({
   slotButton: {
     width: "48%",
@@ -94,3 +95,5 @@ const styles = StyleSheet.create({
     color: theme.colors.textSecondary,
   },
 });
+
+export default memo(TimeSlotCard);

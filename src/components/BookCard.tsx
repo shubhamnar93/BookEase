@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { memo, ReactNode } from "react";
 import { View } from "react-native";
 import BookSectionAppointment from "./BookSectionHeader";
 import { StyleSheet } from "react-native";
 import { theme } from "../theme";
 import { IconName } from "../types";
 
-export default function BookCard({
+function BookCard({
   children,
   iconName,
   title,
@@ -21,7 +21,6 @@ export default function BookCard({
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surface,
@@ -31,3 +30,5 @@ const styles = StyleSheet.create({
     ...theme.shadows.medium,
   },
 });
+
+export default memo(BookCard);

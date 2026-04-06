@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, TextInput, View } from "react-native";
 import { theme } from "../theme";
+import { memo } from "react";
 
-export default function Search({
+function Search({
   placeholder,
   value,
   onChangeText,
@@ -63,3 +64,5 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
   },
 });
+
+export default memo(Search);

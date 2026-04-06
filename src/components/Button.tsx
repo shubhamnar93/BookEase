@@ -2,8 +2,9 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import { theme } from "../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { IconName } from "../types";
+import { memo } from "react";
 
-export default function Button({
+function Button({
   label,
   iconName,
   onPress,
@@ -51,7 +52,6 @@ export default function Button({
     </TouchableOpacity>
   );
 }
-
 const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
@@ -78,3 +78,5 @@ const styles = StyleSheet.create({
     marginRight: theme.spacing.small,
   },
 });
+
+export default memo(Button);

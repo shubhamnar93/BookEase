@@ -1,6 +1,6 @@
 import { theme } from "@/src/theme";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -14,9 +14,9 @@ import { useAuth } from "../../src/context/AuthContext";
 import AuthHeader from "@/src/components/AuthHeader";
 import Input from "@/src/components/input";
 import Button from "@/src/components/Button";
-import { AuthFooter } from "@/src/components/AuthFooter";
+import AuthFooter from "@/src/components/AuthFooter";
 
-export default function Login() {
+function Login() {
   const { login, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,11 +58,10 @@ export default function Login() {
         />
 
         <View style={styles.formContainer}>
-          <Text 
+          <Text
             style={styles.formTitle}
             accessibilityRole="header"
-            accessibilityLabel="Login Form"
-          >
+            accessibilityLabel="Login Form">
             Welcome Back
           </Text>
           <Text style={styles.formSubtitle}>Sign in to continue</Text>
@@ -102,7 +101,6 @@ export default function Login() {
     </KeyboardAvoidingView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -132,3 +130,5 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing.large,
   },
 });
+
+export default memo(Login);

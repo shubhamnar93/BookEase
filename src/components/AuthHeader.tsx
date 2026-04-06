@@ -3,8 +3,9 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, View } from "react-native";
 import { theme } from "../theme";
 import { IconName } from "../types";
+import { memo } from "react";
 
-export default function AuthHeader({
+function AuthHeader({
   heading,
   tagline,
   iconName,
@@ -21,21 +22,20 @@ export default function AuthHeader({
       end={{ x: 1, y: 1 }}>
       <View style={styles.logoContainer}>
         <View style={styles.logoWrapper}>
-          <Ionicons 
-            name={iconName} 
-            size={56} 
+          <Ionicons
+            name={iconName}
+            size={56}
             color={theme.colors.primary}
             accessible={false} // Decorative icon
           />
         </View>
-        <Text 
+        <Text
           style={styles.appName}
           accessibilityRole="header"
-          accessibilityLabel={heading}
-        >
+          accessibilityLabel={heading}>
           {heading}
         </Text>
-        <Text 
+        <Text
           style={styles.tagline}
           accessible={false} // Secondary text, optional
         >
@@ -81,3 +81,5 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
 });
+
+export default memo(AuthHeader);

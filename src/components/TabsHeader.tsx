@@ -5,8 +5,9 @@ import { theme } from "../theme";
 import { useAuth } from "../context/AuthContext";
 import { router } from "expo-router";
 import { IconName } from "../types";
+import { memo } from "react";
 
-export default function TabsHeader({
+function TabsHeader({
   title,
   iconName,
   accessibilityLabel,
@@ -88,3 +89,5 @@ const styles = StyleSheet.create({
     padding: theme.spacing.small,
   },
 });
+
+export default memo(TabsHeader);

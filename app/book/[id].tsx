@@ -4,7 +4,7 @@ import DateTimePicker, {
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -31,7 +31,7 @@ const TIME_SLOTS = [
   "04:00 PM",
 ];
 
-export default function BookAppointment() {
+function BookAppointment() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const { bookAppointment, isSlotBooked } = useAppointments();
@@ -133,7 +133,6 @@ export default function BookAppointment() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -176,3 +175,5 @@ const styles = StyleSheet.create({
     ...theme.shadows.primary,
   },
 });
+
+export default memo(BookAppointment);

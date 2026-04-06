@@ -2,8 +2,9 @@ import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Provider } from "../types";
+import { memo } from "react";
 
-export default function ProviderCard({
+function ProviderCard({
   item,
   onPress,
 }: {
@@ -11,17 +12,16 @@ export default function ProviderCard({
   onPress: () => void;
 }) {
   return (
-    <TouchableOpacity 
-      onPress={onPress} 
-      style={styles.card} 
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.card}
       activeOpacity={0.8}
       accessible={true}
       accessibilityRole="button"
       accessibilityLabel={item.name}
-      accessibilityHint={`${item.category} service provider. Tap to view details and book appointment`}
-    >
-      <Image 
-        source={{ uri: item.image }} 
+      accessibilityHint={`${item.category} service provider. Tap to view details and book appointment`}>
+      <Image
+        source={{ uri: item.image }}
         style={styles.image}
         accessible={true}
         accessibilityLabel={`${item.name} profile image`}
@@ -30,10 +30,7 @@ export default function ProviderCard({
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.category}>{item.category}</Text>
       </View>
-      <View 
-        style={styles.iconContainer}
-        accessible={false}
-      >
+      <View style={styles.iconContainer} accessible={false}>
         <Ionicons
           name="chevron-forward"
           size={20}
@@ -84,3 +81,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+export default memo(ProviderCard);

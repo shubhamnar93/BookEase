@@ -1,8 +1,8 @@
 import { theme } from "@/src/theme";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
-export default function Category({
+function Category({
   category,
   selectedCategory,
   setSelectedCategory,
@@ -27,8 +27,11 @@ export default function Category({
       accessibilityRole="radio"
       accessibilityLabel={category}
       accessibilityState={{ selected: selectedCategory === category }}
-      accessibilityHint={selectedCategory === category ? "Currently selected category" : "Double tap to select this category"}
-    >
+      accessibilityHint={
+        selectedCategory === category
+          ? "Currently selected category"
+          : "Double tap to select this category"
+      }>
       <Text
         style={[
           styles.categoryChipText,
@@ -63,3 +66,5 @@ const styles = StyleSheet.create({
     color: theme.colors.surface,
   },
 });
+
+export default memo(Category);

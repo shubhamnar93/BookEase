@@ -2,8 +2,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { theme } from "../theme";
 import { IconName } from "../types";
+import { memo } from "react";
 
-export default function BookSectionAppointment({
+function BookSectionAppointment({
   iconName,
   title,
 }: {
@@ -12,23 +13,21 @@ export default function BookSectionAppointment({
 }) {
   return (
     <View style={styles.sectionHeader}>
-      <Ionicons 
-        name={iconName} 
-        size={24} 
+      <Ionicons
+        name={iconName}
+        size={24}
         color={theme.colors.primary}
         accessible={false} // Decorative
       />
-      <Text 
+      <Text
         style={styles.sectionTitle}
         accessibilityRole="header"
-        accessibilityLabel={title}
-      >
+        accessibilityLabel={title}>
         {title}
       </Text>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surface,
@@ -49,3 +48,5 @@ const styles = StyleSheet.create({
     marginLeft: theme.spacing.small,
   },
 });
+
+export default memo(BookSectionAppointment);

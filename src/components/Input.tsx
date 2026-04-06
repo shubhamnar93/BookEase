@@ -2,8 +2,9 @@ import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { IconName } from "../types";
+import { memo } from "react";
 
-export default function Input({
+function Input({
   name,
   setName,
   iconName,
@@ -21,7 +22,7 @@ export default function Input({
   secureTextEntry?: boolean;
 }) {
   return (
-    <View 
+    <View
       style={styles.inputWrapper}
       accessible={false} // Parent is not accessible
     >
@@ -45,9 +46,11 @@ export default function Input({
         secureTextEntry={secureTextEntry}
         autoComplete={placeholder === "Email" ? "email" : "off"}
         textContentType={
-          placeholder === "Email" ? "emailAddress" : 
-          placeholder === "Password" ? "password" : 
-          "none"
+          placeholder === "Email"
+            ? "emailAddress"
+            : placeholder === "Password"
+              ? "password"
+              : "none"
         }
       />
     </View>
@@ -74,3 +77,5 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.medium,
   },
 });
+
+export default memo(Input);

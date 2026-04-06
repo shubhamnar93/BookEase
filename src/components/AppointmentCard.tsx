@@ -3,8 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { theme } from "../theme";
 import { useAppointments } from "../context/AppointmentContext";
 import { Appointment, Provider } from "../types";
+import { memo } from "react";
 
-export default function AppointmentCard({
+function AppointmentCard({
   item,
   provider,
 }: {
@@ -17,21 +18,17 @@ export default function AppointmentCard({
   const providerName = provider?.name ?? "Unknown Provider";
   const providerCategory = provider?.category ?? "Service";
   return (
-    <View 
+    <View
       style={styles.card}
       accessible={true}
       accessibilityRole="none"
       accessibilityLabel={`${providerName} appointment`}
-      accessibilityHint={`${formattedDate} at ${item.timeSlot}`}
-    >
-      <View 
-        style={styles.cardHeader}
-        accessible={false}
-      >
+      accessibilityHint={`${formattedDate} at ${item.timeSlot}`}>
+      <View style={styles.cardHeader} accessible={false}>
         <View style={styles.avatarContainer}>
-          <Ionicons 
-            name="person" 
-            size={24} 
+          <Ionicons
+            name="person"
+            size={24}
             color={theme.colors.primary}
             accessible={false} // Decorative
           />
@@ -45,29 +42,27 @@ export default function AppointmentCard({
       <View style={styles.divider} />
 
       <View style={styles.detailsContainer}>
-        <View 
+        <View
           style={styles.detailCard}
           accessible={true}
           accessibilityLabel={`Date: ${formattedDate}`}
-          accessibilityRole="none"
-        >
-          <Ionicons 
-            name="calendar" 
-            size={20} 
+          accessibilityRole="none">
+          <Ionicons
+            name="calendar"
+            size={20}
             color={theme.colors.primary}
             accessible={false}
           />
           <Text style={styles.detail}>{formattedDate}</Text>
         </View>
-        <View 
+        <View
           style={styles.detailCard}
           accessible={true}
           accessibilityLabel={`Time: ${item.timeSlot}`}
-          accessibilityRole="none"
-        >
-          <Ionicons 
-            name="time" 
-            size={20} 
+          accessibilityRole="none">
+          <Ionicons
+            name="time"
+            size={20}
             color={theme.colors.primary}
             accessible={false}
           />
@@ -82,9 +77,9 @@ export default function AppointmentCard({
         onPress={handleCancel}
         style={styles.cancelButton}
         activeOpacity={0.7}>
-        <Ionicons 
-          name="close-circle" 
-          size={18} 
+        <Ionicons
+          name="close-circle"
+          size={18}
           color={theme.colors.error}
           accessible={false}
         />
@@ -171,3 +166,5 @@ const styles = StyleSheet.create({
     marginLeft: theme.spacing.small,
   },
 });
+
+export default memo(AppointmentCard);

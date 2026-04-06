@@ -4,10 +4,10 @@ import { TouchableOpacity } from "react-native";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { theme } from "../theme";
 
-export default function DateSelector({
+function DateSelector({
   date,
   handleDateChange,
   selectedDateStr,
@@ -84,3 +84,5 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
   },
 });
+
+export default memo(DateSelector);

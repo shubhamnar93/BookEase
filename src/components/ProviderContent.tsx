@@ -1,8 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
 import { theme } from "../theme";
+import { memo } from "react";
 
-export default function ProviderContent({
+function ProviderContent({
   category,
   name,
   description,
@@ -14,22 +15,20 @@ export default function ProviderContent({
   return (
     <View style={styles.contentCard}>
       <View style={styles.profileHeader}>
-        <Text 
+        <Text
           style={styles.name}
           accessibilityRole="header"
-          accessibilityLabel={name}
-        >
+          accessibilityLabel={name}>
           {name}
         </Text>
-        <View 
+        <View
           style={styles.categoryBadge}
           accessible={true}
           accessibilityLabel={`Category: ${category}`}
-          accessibilityRole="none"
-        >
-          <Ionicons 
-            name="briefcase" 
-            size={16} 
+          accessibilityRole="none">
+          <Ionicons
+            name="briefcase"
+            size={16}
             color={theme.colors.primary}
             accessible={false} // Decorative
           />
@@ -40,11 +39,10 @@ export default function ProviderContent({
       <View style={styles.divider} />
 
       <View style={styles.descriptionSection}>
-        <Text 
+        <Text
           style={styles.sectionTitle}
           accessibilityRole="header"
-          accessibilityLabel="About section"
-        >
+          accessibilityLabel="About section">
           About
         </Text>
         <Text style={styles.description}>{description}</Text>
@@ -107,3 +105,5 @@ const styles = StyleSheet.create({
     lineHeight: 26,
   },
 });
+
+export default memo(ProviderContent);
