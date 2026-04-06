@@ -1,135 +1,194 @@
-📱 Appointment Booking App (React Native)
+# BookEase - Appointment Booking App
 
-A mobile application built with React Native (Expo Router) that allows users to browse service providers and book appointments with available time slots.
+A React Native mobile application that allows users to book appointments with service providers. Built with Expo and TypeScript, this app provides an intuitive interface for browsing providers, scheduling appointments, and managing bookings.
 
-This project was developed as part of a technical assignment to demonstrate mobile app architecture, state management, UX thinking, and ability to ship a production-ready APK.
+## Objective
 
-✨ App Overview
+Develop a React Native mobile application that allows users to book appointments with service providers. The application should provide an easy way for users to view available time slots and schedule appointments.
 
-The app enables users to:
+## Key Features
 
-Register and login (offline authentication)
-Browse service providers
-View provider details
-Book available time slots
-View upcoming appointments
-Cancel appointments
-Persist data locally using AsyncStorage
+### User Registration and Authentication
 
-All data is stored locally, simulating a real backend.
+- User registration with email and password
+- login/logout functionality
+- Persistent authentication using local storage
+- Session restoration on app restart
 
-🧩 Features
-🔐 Authentication
-Register new account
-Login / Logout
-Persistent session restore on app restart
-Local storage based (no external backend)
-👩‍⚕️ Providers Listing
-Browse list of service providers
-View provider profile details
-Navigate to booking screen
-📅 Appointment Booking
-Select date and time slot
-Prevent double booking of the same slot
-Save appointments locally
-🗂️ Appointment Management
-View upcoming appointments
-Cancel appointment
-Empty state & confirmation dialogs
-🎨 UX Polish
-Loading states
-Success & error alerts
-Clean card-based UI
-Smooth navigation with Expo Router
-🏗️ Tech Stack
-Area Technology
-Framework React Native (Expo)
-Navigation Expo Router (file-based routing)
-Storage AsyncStorage
-State Management React Context API
-Language TypeScript
-Build Expo EAS (APK)
-📂 Project Structure
-app/
-├── (auth)/
-│ ├── login.tsx
-│ └── register.tsx
-│
-├── (tabs)/
-│ ├── \_layout.tsx
-│ ├── providers.tsx
-│ └── appointments.tsx
-│
-├── provider/[id].tsx
-├── book/[id].tsx
-└── \_layout.tsx
+### Service Provider Listing
 
-src/
-├── context/
-│ ├── AuthContext.tsx
-│ └── AppointmentContext.tsx
-│
-├── storage/
-│ ├── authStorage.ts
-│ └── appointmentStorage.ts
-│
-├── data/providers.ts
-└── types/index.ts
-🧠 Architecture Decisions
+- View provider details including name, profile image, and category
+- Search and filter providers
+- Detailed provider profiles with descriptions
 
-1. Context API for Global State
+### Appointment Scheduling
 
-Two global providers:
+- Interactive date and time slot selection
+- Real-time availability checking
+- Prevent double-booking of time slots
 
-AuthContext → manages user session
-AppointmentContext → manages booking logic
+### Appointment Management
 
-This keeps UI components clean and separates business logic.
+- View all upcoming appointments in a dedicated tab
+- Cancel appointments with confirmation
+- Empty states for better user experience
 
-2. AsyncStorage as Local Backend
+## Technical Requirements
 
-A small storage layer simulates real APIs:
+- **Framework**: React Native with Expo
+- **Language**: TypeScript for type safety
+- **Navigation**: Expo Router (file-based routing)
+- **Storage**: AsyncStorage for local data persistence
+- **State Management**: React Context API
+- **UI Components**: Custom components with Expo Vector Icons
+- **Platform**: Android (tested on various devices)
 
-Users
-Current session
-Appointments
+## Installation and Setup
 
-This demonstrates real-world persistence without requiring a backend.
+### Prerequisites
 
-3. Expo Router Navigation
+- Node.js (v18 or later)
+- npm or yarn
+- Expo CLI
+- Android Studio (for Android development)
+- Android SDK with emulator or physical device
 
-File-based routing was used to:
+### Installation Steps
 
-Reduce navigation boilerplate
-Improve project scalability
-Mimic modern production architecture 4. Double Booking Prevention
+1. **Clone the repository**
 
-The booking engine checks if a slot is already booked before confirming.
+   ```bash
+   git clone <repository-url>
+   cd BookEase
+   ```
 
-This simulates real booking systems and adds business logic depth.
+2. **Install dependencies**
 
-⚠️ Assumptions
-This is an offline-first demo app.
-Providers and time slots are mock data.
-Payments and real backend integration are out of scope.
-Authentication is local and not secure for production use.
-▶️ How to Run the Project
-1️⃣ Install dependencies
-npm install
-2️⃣ Start Expo server
-npx expo start
-3️⃣ Run on device/emulator
-Press a → Android emulator
-or
-Scan QR using Expo Go app
-📦 Build APK (Expo EAS)
-npm install -g eas-cli
-eas login
-eas build:configure
-eas build -p android --profile preview
+   ```bash
+   npm install
+   ```
 
-Expo will generate an APK download link.
+3. **Start the development server**
 
-👨‍💻 Author
+   ```bash
+   npm start
+   ```
 
-Shubham Narnolia
+4. **Run on Android**
+   ```bash
+   npm run android
+   ```
+
+## Usage
+
+1. **Registration/Login**: Create an account or login with existing credentials
+2. **Browse Providers**: Explore available service providers in the Providers tab
+3. **Book Appointment**: Select a provider, choose date and time, confirm booking
+4. **Manage Appointments**: View and cancel upcoming appointments in the Appointments tab
+
+## 🛠️ Build and Deployment
+
+### Building APK for Testing
+
+1. **Configure for production**
+
+   ```bash
+   expo build:android
+   ```
+
+2. **Download APK**: Follow the Expo build process to download the APK file
+
+The APK file is included in the submission for testing purposes.
+
+## Project Structure
+
+```
+BookEase/
+├── app/                    # Expo Router app directory
+│   ├── _layout.tsx        # Root layout
+│   ├── index.tsx          # Home screen
+│   ├── (auth)/            # Authentication screens
+│   ├── (tabs)/            # Tab navigation
+│   └── book/              # Booking screens
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── context/           # React contexts for state management
+│   ├── data/              # Mock data and constants
+│   ├── storage/           # AsyncStorage utilities
+│   ├── theme/             # App theming
+│   └── types/             # TypeScript type definitions
+├── android/               # Android build configuration
+├── package.json
+├── app.json              # Expo configuration
+└── tsconfig.json         # TypeScript configuration
+```
+
+## Dependencies and Libraries
+
+### Core Dependencies
+
+- **React Native**: `0.81.5` - Mobile framework
+- **Expo**: `~54.0.33` - Development platform
+- **Expo Router**: `~6.0.23` - File-based routing
+- **TypeScript**: `~5.9.2` - Type safety
+
+### Storage and State
+
+- **@react-native-async-storage/async-storage**: `2.2.0` - Local storage
+- **React Context API** - State management
+
+### UI and Navigation
+
+- **@expo/vector-icons**: `^15.0.3` - Icon library
+- **@react-navigation/native**: `^7.1.8` - Navigation framework
+- **expo-linear-gradient**: `~15.0.8` - Gradient backgrounds
+
+### Utilities
+
+- **@react-native-community/datetimepicker**: `8.4.4` - Date/time picker
+- **expo-haptics**: `~15.0.8` - Haptic feedback
+- **react-native-reanimated**: `~4.1.1` - Animations
+
+## Assumptions and Design Decisions
+
+1. **Offline-First**: All data is stored locally using AsyncStorage, simulating backend functionality
+2. **Mock Data**: Service providers and initial data are hardcoded for demonstration
+3. **Authentication**: Simple email/password validation without encryption (for demo purposes)
+4. **Time Slots**: Fixed 1-hour slots from 9 AM to 5 PM, Monday to Friday
+5. **No Backend**: No external API integration; all operations are local
+6. **Single Platform**: Focused on Android development as specified
+
+## 🔧 Development Tools
+
+- **Expo CLI**: Development and build tooling
+- **ESLint**: Code linting with Expo configuration
+- **TypeScript**: Static type checking
+- **Android Studio**: Android development environment
+
+## Screenshots
+
+_(Screenshots would be included here showing:)_
+
+- Login/Register screens
+- Provider listing
+- Provider details
+- Date/time selection
+- Appointment booking confirmation
+- Appointments list
+
+## Future Enhancements
+
+- Backend API integration
+- Push notifications for appointments
+- Provider ratings and reviews
+- Payment integration
+- iOS support
+- Real-time availability updates
+
+## License
+
+This project is developed as part of a technical assignment and is not intended for commercial use.
+
+---
+
+**Note**: This application was developed within the specified timeframe and demonstrates clean code architecture, user experience design, and React Native best practices.
