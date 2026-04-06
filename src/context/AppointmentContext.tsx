@@ -36,10 +36,6 @@ export const AppointmentProvider = ({
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const { user } = useAuth();
 
-  useEffect(() => {
-    loadAppointments();
-  }, []);
-
   const loadAppointments = async () => {
     const data = await getAppointments();
     setAppointments(data);
@@ -88,6 +84,9 @@ export const AppointmentProvider = ({
   const getUserAppointments = () => {
     return appointments.filter((a) => a.userEmail === user);
   };
+  useEffect(() => {
+    loadAppointments();
+  }, []);
   return (
     <AppointmentContext.Provider
       value={{
