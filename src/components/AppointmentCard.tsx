@@ -13,10 +13,10 @@ function AppointmentCard({
   provider: Provider | undefined;
 }) {
   const { cancelAppointment } = useAppointments();
-  const handleCancel = () => cancelAppointment(item.id);
   const formattedDate = item.dateISO;
   const providerName = provider?.name ?? "Unknown Provider";
   const providerCategory = provider?.category ?? "Service";
+  const handleCancel = () => cancelAppointment(item.id);
   return (
     <View
       style={styles.card}

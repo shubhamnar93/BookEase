@@ -3,13 +3,13 @@ import { theme } from "../theme";
 import { memo } from "react";
 
 function AuthFooter({
-  text,
   linkText,
   onPress,
+  text,
 }: {
-  text: string;
   linkText: string;
   onPress: () => void;
+  text: string;
 }) {
   return (
     <View style={styles.footer}>

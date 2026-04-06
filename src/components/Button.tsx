@@ -5,27 +5,27 @@ import { IconName } from "../types";
 import { memo } from "react";
 
 function Button({
-  label,
-  iconName,
-  onPress,
-  size = 20,
-  padding = "medium",
-  disabled = false,
-  style,
-  marginTop = false,
-  accessibilityLabel,
   accessibilityHint,
+  accessibilityLabel,
+  disabled = false,
+  iconName,
+  label,
+  marginTop = false,
+  onPress,
+  padding = "medium",
+  size = 20,
+  style,
 }: {
-  label: string;
-  iconName: IconName;
-  onPress: () => void;
-  size?: number;
-  padding?: "medium" | "large";
-  marginTop?: boolean;
-  disabled?: boolean;
-  style?: object;
-  accessibilityLabel?: string;
   accessibilityHint?: string;
+  accessibilityLabel?: string;
+  disabled?: boolean;
+  iconName: IconName;
+  label: string;
+  marginTop?: boolean;
+  onPress: () => void;
+  padding?: "medium" | "large";
+  size?: number;
+  style?: object;
 }) {
   return (
     <TouchableOpacity

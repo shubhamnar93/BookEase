@@ -8,15 +8,15 @@ import { IconName } from "../types";
 import { memo } from "react";
 
 function TabsHeader({
-  title,
-  iconName,
-  accessibilityLabel,
   accessibilityHint,
+  accessibilityLabel,
+  iconName,
+  title,
 }: {
-  title: string;
-  iconName: IconName;
-  accessibilityLabel?: string;
   accessibilityHint?: string;
+  accessibilityLabel?: string;
+  iconName: IconName;
+  title: string;
 }) {
   const { logout } = useAuth();
   const handleLogout = async () => {

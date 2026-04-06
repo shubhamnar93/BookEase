@@ -6,7 +6,7 @@ import { PROVIDERS } from "../../src/data/providers";
 import BackButton from "@/src/components/BackButton";
 import Button from "@/src/components/Button";
 import ProviderContent from "@/src/components/ProviderContent";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 function ProviderDetails() {
   const { id } = useLocalSearchParams();
@@ -14,9 +14,9 @@ function ProviderDetails() {
 
   const provider = PROVIDERS.find((p) => p.id === id);
 
-  const handleBookAppointment = () => {
+  const handleBookAppointment = useCallback(() => {
     router.push(`/book/${provider?.id}`);
-  };
+  }, []);
 
   if (!provider)
     return (

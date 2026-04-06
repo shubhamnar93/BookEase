@@ -4,17 +4,17 @@ import { theme } from "../theme";
 import { memo } from "react";
 
 function Search({
+  accessibilityHint,
+  accessibilityLabel,
+  onChangeText,
   placeholder,
   value,
-  onChangeText,
-  accessibilityLabel,
-  accessibilityHint,
 }: {
+  accessibilityHint?: string;
+  accessibilityLabel?: string;
+  onChangeText: (text: string) => void;
   placeholder: string;
   value: string;
-  onChangeText: (text: string) => void;
-  accessibilityLabel?: string;
-  accessibilityHint?: string;
 }) {
   return (
     <View

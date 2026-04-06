@@ -11,10 +11,9 @@ function Category({
   selectedCategory: string;
   setSelectedCategory: (category: string) => void;
 }) {
-  const setCategory = useCallback(() => {
+  const setCategory = () => {
     setSelectedCategory(category);
-  }, [category]);
-
+  };
   return (
     <TouchableOpacity
       key={category}

@@ -1,7 +1,7 @@
 import { useAuth } from "@/src/context/AuthContext";
 import { theme } from "@/src/theme";
 import { useRouter } from "expo-router";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -41,9 +41,9 @@ function Signup() {
     router.push("/(tabs)/providers");
   };
 
-  const handleLoginPush = () => {
+  const handleLoginPush = useCallback(() => {
     router.replace("/(auth)/login");
-  };
+  }, []);
 
   useEffect(() => {
     if (user) {

@@ -5,12 +5,12 @@ import { memo } from "react";
 
 function ProviderContent({
   category,
-  name,
   description,
+  name,
 }: {
   category: string;
-  name: string;
   description: string;
+  name: string;
 }) {
   return (
     <View style={styles.contentCard}>

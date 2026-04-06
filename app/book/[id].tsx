@@ -4,7 +4,7 @@ import DateTimePicker, {
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { memo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import {
   Alert,
   ScrollView,
@@ -32,23 +32,23 @@ const TIME_SLOTS = [
 ];
 
 function BookAppointment() {
+  const [date, setDate] = useState(new Date());
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
+
   const { id } = useLocalSearchParams();
   const router = useRouter();
   const { bookAppointment, isSlotBooked } = useAppointments();
 
-  const [date, setDate] = useState(new Date());
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-
   const selectedDateStr = date.toISOString().split("T")[0];
-  const handleDateChange = (
-    event: DateTimePickerEvent,
-    selectedDate?: Date,
-  ) => {
-    if (selectedDate) {
-      setDate(selectedDate);
-      setSelectedSlot(null); // Reset slot on date change
-    }
-  };
+  const handleDateChange = useCallback(
+    (event: DateTimePickerEvent, selectedDate?: Date) => {
+      if (selectedDate) {
+        setDate(selectedDate);
+        setSelectedSlot(null);
+      }
+    },
+    [],
+  );
 
   const handleBooking = async () => {
     if (!selectedSlot) {

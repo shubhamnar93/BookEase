@@ -1,6 +1,6 @@
 import { theme } from "@/src/theme";
 import { useRouter } from "expo-router";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
@@ -17,25 +17,24 @@ import Button from "@/src/components/Button";
 import AuthFooter from "@/src/components/AuthFooter";
 
 function Login() {
-  const { login, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, user } = useAuth();
   const router = useRouter();
 
   const handleLogin = async () => {
     const error = await login(email, password);
-
     if (error) {
       console.log(error);
       Alert.alert("Login Failed", error);
       return;
     }
-
     router.push("/(tabs)/providers");
   };
-  const handleRegisterPush = () => {
+
+  const handleRegisterPush = useCallback(() => {
     router.push("/register");
-  };
+  }, []);
 
   useEffect(() => {
     if (user) {

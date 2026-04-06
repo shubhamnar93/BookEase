@@ -7,12 +7,12 @@ import { memo } from "react";
 
 function AuthHeader({
   heading,
-  tagline,
   iconName,
+  tagline,
 }: {
   heading: string;
-  tagline: string;
   iconName: IconName;
+  tagline: string;
 }) {
   return (
     <LinearGradient

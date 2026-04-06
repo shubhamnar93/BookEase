@@ -4,15 +4,15 @@ import { Ionicons } from "@expo/vector-icons";
 import { memo } from "react";
 
 function TimeSlotCard({
-  slot,
   booked,
   selected,
   setSelectedSlot,
+  slot,
 }: {
-  slot: string;
   booked: boolean;
   selected: boolean;
   setSelectedSlot: (slot: string) => void;
+  slot: string;
 }) {
   const handlePress = () => {
     setSelectedSlot(slot);

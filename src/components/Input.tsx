@@ -5,21 +5,21 @@ import { IconName } from "../types";
 import { memo } from "react";
 
 function Input({
-  name,
-  setName,
-  iconName,
-  placeholder,
-  accessibilityLabel,
   accessibilityHint,
+  accessibilityLabel,
+  iconName,
+  name,
+  placeholder,
   secureTextEntry,
+  setName,
 }: {
-  name: string;
-  setName: (text: string) => void;
-  iconName: IconName;
-  placeholder: string;
-  accessibilityLabel?: string;
   accessibilityHint?: string;
+  accessibilityLabel?: string;
+  iconName: IconName;
+  name: string;
+  placeholder: string;
   secureTextEntry?: boolean;
+  setName: (text: string) => void;
 }) {
   return (
     <View
