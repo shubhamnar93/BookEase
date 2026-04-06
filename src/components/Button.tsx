@@ -12,6 +12,8 @@ export default function Button({
   disabled = false,
   style,
   marginTop = false,
+  accessibilityLabel,
+  accessibilityHint,
 }: {
   label: string;
   iconName: IconName;
@@ -21,9 +23,16 @@ export default function Button({
   marginTop?: boolean;
   disabled?: boolean;
   style?: object;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
 }) {
   return (
     <TouchableOpacity
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel || label}
+      accessibilityHint={accessibilityHint}
+      accessibilityState={{ disabled }}
       style={{
         ...styles.button,
         ...(padding === "large" ? styles.largePadding : {}),
@@ -31,7 +40,8 @@ export default function Button({
         ...(marginTop ? styles.marginTop : {}),
         ...style,
       }}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={styles.buttonText}>{label}</Text>
       <Ionicons
         name={iconName}

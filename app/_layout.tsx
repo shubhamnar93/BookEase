@@ -37,7 +37,13 @@ function RootNavigator() {
           alignItems: "center",
           backgroundColor: theme.colors.background,
         }}>
-        <ActivityIndicator size="large" color={theme.colors.primary} />
+        <ActivityIndicator 
+          size="large" 
+          color={theme.colors.primary}
+          accessibilityLabel="Loading application"
+          accessibilityRole="progressbar"
+          accessibilityLiveRegion="polite"
+        />
       </View>
     );
   }

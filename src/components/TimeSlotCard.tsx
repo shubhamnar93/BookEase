@@ -26,7 +26,17 @@ export default function TimeSlotCard({
         booked && styles.slotButtonDisabled,
         selected && styles.slotButtonSelected,
       ]}
-      activeOpacity={0.7}>
+      activeOpacity={0.7}
+      accessible={true}
+      accessibilityRole="radio"
+      accessibilityLabel={slot}
+      accessibilityState={{ selected, disabled: booked }}
+      accessibilityHint={
+        booked ? "This time slot is not available" : 
+        selected ? "This time slot is selected" : 
+        "Double tap to select this time slot"
+      }
+    >
       <Text
         style={[
           styles.slotText,
@@ -41,6 +51,8 @@ export default function TimeSlotCard({
           size={14}
           color={theme.colors.textSecondary}
           style={{ marginLeft: 6 }}
+          accessible={false} // Decorative icon
+          accessibilityLabel="" // Hide from screen reader
         />
       )}
     </TouchableOpacity>

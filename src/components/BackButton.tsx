@@ -17,8 +17,18 @@ export default function BackButton({
       style={[
         variant === "floating" && styles.floating,
         variant === "inline" && styles.inline,
-      ]}>
-      <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+      ]}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel="Go back to previous screen"
+      accessibilityHint="Navigate back one screen"
+    >
+      <Ionicons 
+        name="arrow-back" 
+        size={24} 
+        color={theme.colors.text}
+        accessible={false} // Hide icon from screen reader
+      />
     </TouchableOpacity>
   );
 }

@@ -17,10 +17,24 @@ export default function AppointmentCard({
   const providerName = provider?.name ?? "Unknown Provider";
   const providerCategory = provider?.category ?? "Service";
   return (
-    <View style={styles.card}>
-      <View style={styles.cardHeader}>
+    <View 
+      style={styles.card}
+      accessible={true}
+      accessibilityRole="none"
+      accessibilityLabel={`${providerName} appointment`}
+      accessibilityHint={`${formattedDate} at ${item.timeSlot}`}
+    >
+      <View 
+        style={styles.cardHeader}
+        accessible={false}
+      >
         <View style={styles.avatarContainer}>
-          <Ionicons name="person" size={24} color={theme.colors.primary} />
+          <Ionicons 
+            name="person" 
+            size={24} 
+            color={theme.colors.primary}
+            accessible={false} // Decorative
+          />
         </View>
         <View style={styles.headerText}>
           <Text style={styles.providerName}>{providerName}</Text>
@@ -31,12 +45,32 @@ export default function AppointmentCard({
       <View style={styles.divider} />
 
       <View style={styles.detailsContainer}>
-        <View style={styles.detailCard}>
-          <Ionicons name="calendar" size={20} color={theme.colors.primary} />
+        <View 
+          style={styles.detailCard}
+          accessible={true}
+          accessibilityLabel={`Date: ${formattedDate}`}
+          accessibilityRole="none"
+        >
+          <Ionicons 
+            name="calendar" 
+            size={20} 
+            color={theme.colors.primary}
+            accessible={false}
+          />
           <Text style={styles.detail}>{formattedDate}</Text>
         </View>
-        <View style={styles.detailCard}>
-          <Ionicons name="time" size={20} color={theme.colors.primary} />
+        <View 
+          style={styles.detailCard}
+          accessible={true}
+          accessibilityLabel={`Time: ${item.timeSlot}`}
+          accessibilityRole="none"
+        >
+          <Ionicons 
+            name="time" 
+            size={20} 
+            color={theme.colors.primary}
+            accessible={false}
+          />
           <Text style={styles.detail}>{item.timeSlot}</Text>
         </View>
       </View>
@@ -44,10 +78,16 @@ export default function AppointmentCard({
       <TouchableOpacity
         accessibilityRole="button"
         accessibilityLabel="Cancel appointment"
+        accessibilityHint={`Cancels the appointment with ${providerName}`}
         onPress={handleCancel}
         style={styles.cancelButton}
         activeOpacity={0.7}>
-        <Ionicons name="close-circle" size={18} color={theme.colors.error} />
+        <Ionicons 
+          name="close-circle" 
+          size={18} 
+          color={theme.colors.error}
+          accessible={false}
+        />
         <Text style={styles.cancelButtonText}>Cancel Appointment</Text>
       </TouchableOpacity>
     </View>

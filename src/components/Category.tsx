@@ -22,7 +22,13 @@ export default function Category({
         styles.categoryChip,
         selectedCategory === category && styles.categoryChipSelected,
       ]}
-      onPress={setCategory}>
+      onPress={setCategory}
+      accessible={true}
+      accessibilityRole="radio"
+      accessibilityLabel={category}
+      accessibilityState={{ selected: selectedCategory === category }}
+      accessibilityHint={selectedCategory === category ? "Currently selected category" : "Double tap to select this category"}
+    >
       <Text
         style={[
           styles.categoryChipText,

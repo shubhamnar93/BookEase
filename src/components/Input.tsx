@@ -8,19 +8,29 @@ export default function Input({
   setName,
   iconName,
   placeholder,
+  accessibilityLabel,
+  accessibilityHint,
+  secureTextEntry,
 }: {
   name: string;
   setName: (text: string) => void;
   iconName: IconName;
   placeholder: string;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
+  secureTextEntry?: boolean;
 }) {
   return (
-    <View style={styles.inputWrapper}>
+    <View 
+      style={styles.inputWrapper}
+      accessible={false} // Parent is not accessible
+    >
       <Ionicons
         name={iconName}
         size={20}
         color={theme.colors.textSecondary}
         style={styles.inputIcon}
+        accessible={false} // Icon is decorative
       />
       <TextInput
         placeholder={placeholder}
@@ -28,6 +38,17 @@ export default function Input({
         placeholderTextColor={theme.colors.textSecondary}
         value={name}
         onChangeText={setName}
+        accessible={true}
+        accessibilityLabel={accessibilityLabel || placeholder}
+        accessibilityHint={accessibilityHint}
+        accessibilityRole="none" // Remove default role
+        secureTextEntry={secureTextEntry}
+        autoComplete={placeholder === "Email" ? "email" : "off"}
+        textContentType={
+          placeholder === "Email" ? "emailAddress" : 
+          placeholder === "Password" ? "password" : 
+          "none"
+        }
       />
     </View>
   );

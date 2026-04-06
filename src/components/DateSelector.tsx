@@ -39,12 +39,17 @@ export default function DateSelector({
       <TouchableOpacity
         style={styles.dateSelector}
         onPress={openPicker}
-        activeOpacity={0.7}>
+        activeOpacity={0.7}
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel="Select date"
+        accessibilityHint={`Current date: ${selectedDateStr}. Tap to open calendar`}>
         <Text style={styles.dateSelectorText}>{selectedDateStr}</Text>
         <Ionicons
           name="calendar"
           size={20}
           color={theme.colors.textSecondary}
+          accessible={false} // Decorative
         />
       </TouchableOpacity>
 
@@ -55,6 +60,8 @@ export default function DateSelector({
           display="default"
           minimumDate={new Date()}
           onChange={onChange}
+          accessible={true}
+          accessibilityLabel="Date picker modal"
         />
       )}
     </>

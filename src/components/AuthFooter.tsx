@@ -14,8 +14,18 @@ export const AuthFooter = ({
   return (
     <View style={styles.footer}>
       <Text style={styles.link}>{text} </Text>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.linkBold}>{linkText}</Text>
+      <TouchableOpacity 
+        onPress={onPress}
+        accessible={true}
+        accessibilityRole="button"
+        accessibilityLabel={linkText}
+        accessibilityHint={`Navigate to ${linkText.toLowerCase()}`}
+      >
+        <Text 
+          style={[styles.linkBold, { textDecorationLine: 'underline' }]}
+        >
+          {linkText}
+        </Text>
       </TouchableOpacity>
     </View>
   );

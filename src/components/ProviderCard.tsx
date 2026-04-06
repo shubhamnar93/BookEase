@@ -11,17 +11,34 @@ export default function ProviderCard({
   onPress: () => void;
 }) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.card} activeOpacity={0.8}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+    <TouchableOpacity 
+      onPress={onPress} 
+      style={styles.card} 
+      activeOpacity={0.8}
+      accessible={true}
+      accessibilityRole="button"
+      accessibilityLabel={item.name}
+      accessibilityHint={`${item.category} service provider. Tap to view details and book appointment`}
+    >
+      <Image 
+        source={{ uri: item.image }} 
+        style={styles.image}
+        accessible={true}
+        accessibilityLabel={`${item.name} profile image`}
+      />
       <View style={styles.textContainer}>
         <Text style={styles.name}>{item.name}</Text>
         <Text style={styles.category}>{item.category}</Text>
       </View>
-      <View style={styles.iconContainer}>
+      <View 
+        style={styles.iconContainer}
+        accessible={false}
+      >
         <Ionicons
           name="chevron-forward"
           size={20}
           color={theme.colors.primary}
+          accessible={false}
         />
       </View>
     </TouchableOpacity>

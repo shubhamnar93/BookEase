@@ -69,30 +69,45 @@ export default function Signup() {
           iconName="person-add"
         />
         <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>Sign Up</Text>
+          <Text 
+            style={styles.formTitle}
+            accessibilityRole="header"
+            accessibilityLabel="Sign Up Form"
+          >
+            Sign Up
+          </Text>
           <Text style={styles.formSubtitle}>Enter your details below</Text>
           <Input
             name={name}
             setName={setName}
             iconName="person-outline"
             placeholder="Full Name"
+            accessibilityLabel="Full name input"
+            accessibilityHint="Enter your full name"
           />
           <Input
             name={email}
             setName={setEmail}
             iconName="mail-outline"
             placeholder="Email"
+            accessibilityLabel="Email address input"
+            accessibilityHint="Enter a valid email address"
           />
           <Input
             name={password}
             setName={setPassword}
             iconName="lock-closed-outline"
             placeholder="Password"
+            accessibilityLabel="Password input"
+            accessibilityHint="Enter a secure password, text is hidden"
+            secureTextEntry={true}
           />
           <Button
             label="Create Account"
             iconName="arrow-forward"
             onPress={handleSignup}
+            accessibilityLabel="Create new account"
+            accessibilityHint="Registers your account and signs you in"
           />
 
           <AuthFooter

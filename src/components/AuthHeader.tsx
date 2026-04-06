@@ -21,10 +21,26 @@ export default function AuthHeader({
       end={{ x: 1, y: 1 }}>
       <View style={styles.logoContainer}>
         <View style={styles.logoWrapper}>
-          <Ionicons name={iconName} size={56} color={theme.colors.primary} />
+          <Ionicons 
+            name={iconName} 
+            size={56} 
+            color={theme.colors.primary}
+            accessible={false} // Decorative icon
+          />
         </View>
-        <Text style={styles.appName}>{heading}</Text>
-        <Text style={styles.tagline}>{tagline}</Text>
+        <Text 
+          style={styles.appName}
+          accessibilityRole="header"
+          accessibilityLabel={heading}
+        >
+          {heading}
+        </Text>
+        <Text 
+          style={styles.tagline}
+          accessible={false} // Secondary text, optional
+        >
+          {tagline}
+        </Text>
       </View>
     </LinearGradient>
   );

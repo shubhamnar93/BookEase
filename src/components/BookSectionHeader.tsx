@@ -12,8 +12,19 @@ export default function BookSectionAppointment({
 }) {
   return (
     <View style={styles.sectionHeader}>
-      <Ionicons name={iconName} size={24} color={theme.colors.primary} />
-      <Text style={styles.sectionTitle}>{title}</Text>
+      <Ionicons 
+        name={iconName} 
+        size={24} 
+        color={theme.colors.primary}
+        accessible={false} // Decorative
+      />
+      <Text 
+        style={styles.sectionTitle}
+        accessibilityRole="header"
+        accessibilityLabel={title}
+      >
+        {title}
+      </Text>
     </View>
   );
 }

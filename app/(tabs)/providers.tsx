@@ -37,6 +37,8 @@ export default function Providers() {
         placeholder="Search providers..."
         value={searchQuery}
         onChangeText={setSearchQuery}
+        accessibilityLabel="Search providers"
+        accessibilityHint="Type to search for providers or services"
       />
 
       <View style={styles.categoriesContainer}>
@@ -60,6 +62,9 @@ export default function Providers() {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
+        accessible={true}
+        accessibilityLabel={`${filteredProviders.length} providers found`}
+        accessibilityHint={selectedCategory !== "All" ? `Filtered by ${selectedCategory}` : "Showing all providers"}
         renderItem={({ item }) => (
           <ProviderCard
             item={item}

@@ -13,16 +13,27 @@ export default function Appointments() {
   if (appointments.length === 0) {
     return (
       <View style={styles.container}>
-        <TabsHeader title="My Appointments" iconName={"calendar-sharp"} />
+        <TabsHeader 
+          title="My Appointments" 
+          iconName={"calendar-sharp"}
+          accessibilityLabel="My appointments screen"
+        />
         <View style={styles.emptyContainer}>
           <View style={styles.emptyIconContainer}>
             <Ionicons
               name="calendar-clear-outline"
               size={80}
               color={theme.colors.primaryLight}
+              accessibilityLabel="Empty calendar icon"
             />
           </View>
-          <Text style={styles.emptyText}>No appointments yet</Text>
+          <Text 
+            style={styles.emptyText}
+            accessibilityRole="header"
+            accessibilityLabel="No appointments"
+          >
+            No appointments yet
+          </Text>
           <Text style={styles.emptySubtext}>
             Book your first appointment to get started!
           </Text>
@@ -33,12 +44,19 @@ export default function Appointments() {
 
   return (
     <View style={styles.container}>
-      <TabsHeader title="My Appointments" iconName={"calendar-sharp"} />
+      <TabsHeader 
+        title="My Appointments" 
+        iconName={"calendar-sharp"}
+        accessibilityLabel="My appointments screen"
+      />
       <FlatList
         data={appointments}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
+        accessible={true}
+        accessibilityLabel="List of appointments"
+        accessibilityHint={`You have ${appointments.length} appointments`}
         renderItem={({ item }) => {
           const provider = PROVIDERS.find((p) => p.id === item.providerId);
 

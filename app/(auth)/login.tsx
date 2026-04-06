@@ -58,25 +58,38 @@ export default function Login() {
         />
 
         <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>Welcome Back</Text>
+          <Text 
+            style={styles.formTitle}
+            accessibilityRole="header"
+            accessibilityLabel="Login Form"
+          >
+            Welcome Back
+          </Text>
           <Text style={styles.formSubtitle}>Sign in to continue</Text>
           <Input
             name={email}
             setName={setEmail}
             iconName="mail-outline"
             placeholder="Email"
+            accessibilityLabel="Email address input"
+            accessibilityHint="Enter your registered email address"
           />
           <Input
             name={password}
             setName={setPassword}
             iconName="lock-closed-outline"
             placeholder="Password"
+            accessibilityLabel="Password input"
+            accessibilityHint="Enter your password, text is hidden for security"
+            secureTextEntry={true}
           />
           <Button
             label="Sign In"
             iconName="arrow-forward"
             onPress={handleLogin}
             marginTop
+            accessibilityLabel="Sign in to your account"
+            accessibilityHint="Submits your email and password"
           />
 
           <AuthFooter

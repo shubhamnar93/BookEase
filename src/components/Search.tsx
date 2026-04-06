@@ -6,18 +6,26 @@ export default function Search({
   placeholder,
   value,
   onChangeText,
+  accessibilityLabel,
+  accessibilityHint,
 }: {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
 }) {
   return (
-    <View style={styles.searchContainer}>
+    <View
+      style={styles.searchContainer}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityHint={accessibilityHint}>
       <Ionicons
         name="search"
         size={20}
         color={theme.colors.textSecondary}
         style={styles.searchIcon}
+        accessible={false} // Decorative
       />
       <TextInput
         style={styles.searchInput}
@@ -25,6 +33,11 @@ export default function Search({
         placeholderTextColor={theme.colors.textSecondary}
         value={value}
         onChangeText={onChangeText}
+        accessible={true}
+        accessibilityRole="search"
+        accessibilityLabel="Search"
+        accessibilityHint="Type to search for providers or services"
+        textContentType="none"
       />
     </View>
   );

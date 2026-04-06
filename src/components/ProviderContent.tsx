@@ -14,9 +14,25 @@ export default function ProviderContent({
   return (
     <View style={styles.contentCard}>
       <View style={styles.profileHeader}>
-        <Text style={styles.name}>{name}</Text>
-        <View style={styles.categoryBadge}>
-          <Ionicons name="briefcase" size={16} color={theme.colors.primary} />
+        <Text 
+          style={styles.name}
+          accessibilityRole="header"
+          accessibilityLabel={name}
+        >
+          {name}
+        </Text>
+        <View 
+          style={styles.categoryBadge}
+          accessible={true}
+          accessibilityLabel={`Category: ${category}`}
+          accessibilityRole="none"
+        >
+          <Ionicons 
+            name="briefcase" 
+            size={16} 
+            color={theme.colors.primary}
+            accessible={false} // Decorative
+          />
           <Text style={styles.category}>{category}</Text>
         </View>
       </View>
@@ -24,7 +40,13 @@ export default function ProviderContent({
       <View style={styles.divider} />
 
       <View style={styles.descriptionSection}>
-        <Text style={styles.sectionTitle}>About</Text>
+        <Text 
+          style={styles.sectionTitle}
+          accessibilityRole="header"
+          accessibilityLabel="About section"
+        >
+          About
+        </Text>
         <Text style={styles.description}>{description}</Text>
       </View>
     </View>

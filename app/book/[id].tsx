@@ -77,7 +77,12 @@ export default function BookAppointment() {
     <View style={styles.container}>
       <View style={styles.header}>
         <BackButton variant="inline" />
-        <Text style={styles.headerTitle}>Select Date & Time</Text>
+        <Text
+          style={styles.headerTitle}
+          accessibilityRole="header"
+          accessibilityLabel="Appointment booking - Select date and time">
+          Select Date & Time
+        </Text>
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
@@ -111,12 +116,18 @@ export default function BookAppointment() {
 
       <View style={styles.footerContainer}>
         <Button
-          label="confirm Booking"
+          label="Confirm Booking"
           iconName="checkmark-circle"
           onPress={handleBooking}
           disabled={!selectedSlot}
           size={24}
           padding="large"
+          accessibilityLabel="Confirm appointment booking"
+          accessibilityHint={
+            selectedSlot
+              ? `Booking for ${selectedSlot}`
+              : "Select a time slot first"
+          }
         />
       </View>
     </View>

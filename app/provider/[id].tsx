@@ -19,7 +19,11 @@ export default function ProviderDetails() {
 
   if (!provider)
     return (
-      <View style={styles.errorContainer}>
+      <View
+        style={styles.errorContainer}
+        accessible={true}
+        accessibilityRole="alert"
+        accessibilityLabel="Error: Provider not found">
         <Ionicons name="alert-circle" size={48} color={theme.colors.error} />
         <Text style={styles.errorText}>Provider not found</Text>
       </View>
@@ -31,7 +35,12 @@ export default function ProviderDetails() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: provider.image }} style={styles.heroImage} />
+          <Image
+            source={{ uri: provider.image }}
+            style={styles.heroImage}
+            accessible={true}
+            accessibilityLabel={`${provider.name}, ${provider.category} service`}
+          />
           <BackButton variant="floating" />
         </View>
 
@@ -49,6 +58,8 @@ export default function ProviderDetails() {
           iconName="arrow-forward"
           size={20}
           padding="large"
+          accessibilityLabel="Book appointment with this provider"
+          accessibilityHint={`Book an appointment with ${provider?.name}`}
         />
       </View>
     </View>
