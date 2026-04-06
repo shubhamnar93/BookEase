@@ -19,6 +19,7 @@ import TimeSlotCard from "@/src/components/TimeSlotCard";
 import BookSectionAppointment from "@/src/components/BookSectionHeader";
 import DateSelector from "@/src/components/DateSelector";
 import Button from "@/src/components/Button";
+import BookCard from "@/src/components/BookCard";
 
 const TIME_SLOTS = [
   "09:00 AM",
@@ -80,23 +81,15 @@ export default function BookAppointment() {
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={styles.card}>
-          <BookSectionAppointment
-            iconName="calendar-outline"
-            title="Pick a Date"
-          />
+        <BookCard iconName="calendar-outline" title="Pick a Date">
           <DateSelector
             date={date}
             handleDateChange={handleDateChange}
             selectedDateStr={selectedDateStr}
           />
-        </View>
+        </BookCard>
 
-        <View style={styles.card}>
-          <BookSectionAppointment
-            iconName="time-outline"
-            title="Available Slots"
-          />
+        <BookCard iconName="time-outline" title="Available Slots">
           <View style={styles.slotsGrid}>
             {TIME_SLOTS.map((slot) => {
               const booked = isSlotBooked(id as string, selectedDateStr, slot);
@@ -113,7 +106,7 @@ export default function BookAppointment() {
               );
             })}
           </View>
-        </View>
+        </BookCard>
       </ScrollView>
 
       <View style={styles.footerContainer}>
@@ -152,13 +145,6 @@ const styles = StyleSheet.create({
   content: {
     padding: theme.spacing.large,
     paddingBottom: 120, // space for fixed footer
-  },
-  card: {
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.borderRadius.large,
-    padding: theme.spacing.large,
-    marginBottom: theme.spacing.xlarge,
-    ...theme.shadows.medium,
   },
   slotsGrid: {
     flexDirection: "row",

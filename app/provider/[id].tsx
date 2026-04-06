@@ -91,20 +91,6 @@ const styles = StyleSheet.create({
     borderTopColor: theme.colors.border,
     ...theme.shadows.primary,
   },
-  bookButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: theme.colors.primary,
-    padding: theme.spacing.large,
-    borderRadius: theme.borderRadius.full,
-  },
-  bookButtonText: {
-    color: theme.colors.surface,
-    fontWeight: "bold",
-    fontSize: theme.fontSizes.large,
-    marginRight: theme.spacing.small,
-  },
   errorText: {
     fontSize: theme.fontSizes.medium,
     color: theme.colors.error,
