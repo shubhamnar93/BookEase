@@ -1,6 +1,6 @@
 import { theme } from "@/src/theme";
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import { IconName } from "../types";
 import { memo } from "react";
 

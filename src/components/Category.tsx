@@ -1,5 +1,5 @@
 import { theme } from "@/src/theme";
-import { memo, useCallback } from "react";
+import { memo } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 function Category({

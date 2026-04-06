@@ -1,22 +1,11 @@
-import DateTimePicker, {
-  DateTimePickerEvent,
-} from "@react-native-community/datetimepicker";
+import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { theme } from "@/src/theme";
-import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { memo, useCallback, useState } from "react";
-import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useAppointments } from "../../src/context/AppointmentContext";
 import BackButton from "@/src/components/BackButton";
 import TimeSlotCard from "@/src/components/TimeSlotCard";
-import BookSectionAppointment from "@/src/components/BookSectionHeader";
 import DateSelector from "@/src/components/DateSelector";
 import Button from "@/src/components/Button";
 import BookCard from "@/src/components/BookCard";
