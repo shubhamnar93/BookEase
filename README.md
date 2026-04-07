@@ -167,15 +167,28 @@ BookEase/
 
 ## Screenshots
 
-_(Screenshots would be included here showing:)_
-
 - Login/Register screens
-- Provider listing
-- Provider details
-- Date/time selection
-- Appointment booking confirmation
-- Appointments list
+  
+![login](https://github.com/user-attachments/assets/2dec87c3-f621-4d4a-b146-45adfdfa6a95)
+![register](https://github.com/user-attachments/assets/7066c103-d0ea-4199-b849-2320da14ec63)
 
+- Provider listing
+  
+  ![Providers](https://github.com/user-attachments/assets/6e7e77b0-d8fd-4b75-a23b-ea7cee8d49a8)
+
+- Provider details
+  
+  ![appoointment detail](https://github.com/user-attachments/assets/f4ce9ebf-2c69-4d76-a399-93de52e8f77e)
+
+- Date/time selection
+  
+  ![booking](https://github.com/user-attachments/assets/3931ac0e-38ad-4d60-b678-54a1a55bd461)
+
+- Appointments list
+  
+  ![appointments](https://github.com/user-attachments/assets/31262a53-ac20-4e5b-8082-a68b0916bd97)
+
+  
 ## Future Enhancements
 
 - Backend API integration
