@@ -104,12 +104,13 @@ The APK file is included in the submission for testing purposes.
 
 ```
 BookEase/
-├── app/                    # Expo Router app directory
+├── app/                   # Expo Router app directory
 │   ├── _layout.tsx        # Root layout
 │   ├── index.tsx          # Home screen
 │   ├── (auth)/            # Authentication screens
 │   ├── (tabs)/            # Tab navigation
 │   └── book/              # Booking screens
+|   └── provider/          # provider detail screens
 ├── src/
 │   ├── components/        # Reusable UI components
 │   ├── context/           # React contexts for state management
