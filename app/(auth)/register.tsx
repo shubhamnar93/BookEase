@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { getUsers, saveUser } from "../../src/storage/authStorage";
 import AuthHeader from "@/src/components/AuthHeader";
-import Input from "@/src/components/input";
+import Input from "@/src/components/Input";
 import Button from "@/src/components/Button";
 import AuthFooter from "@/src/components/AuthFooter";
 

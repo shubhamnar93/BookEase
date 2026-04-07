@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useAuth } from "../../src/context/AuthContext";
 import AuthHeader from "@/src/components/AuthHeader";
-import Input from "@/src/components/input";
+import Input from "@/src/components/Input";
 import Button from "@/src/components/Button";
 import AuthFooter from "@/src/components/AuthFooter";
 
